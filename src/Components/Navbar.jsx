@@ -8,7 +8,7 @@ const Navbar = () => {
             data-navbar-item="true"
             className="p-[16px] font-[500] text-sm no-underline relative transition-all hover:text-[#37FF8B]  z-[80]"
             aria-current=""
-            href="/"
+            href="/" 
           >
             Home
           </a>

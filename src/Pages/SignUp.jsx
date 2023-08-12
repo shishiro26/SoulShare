@@ -25,11 +25,11 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="flex flex-row">
+      <div className="flex flex-row ">
         <Navbar />
         <section>
           <div className="bg-gray-50 dark:bg-gray-900 bg-gray-800">
-            <div className="py-4 px-4 mx-auto max-w-screen-xl lg:py-4 grid lg:grid-cols-2 gap-8 lg:gap-6">
+            <div className="py-4 px-4 mx-auto max-w-[100%]  lg:py-4 grid lg:grid-cols-2 gap-8 lg:gap-6">
               <div className="flex flex-col justify-center">
                 <h3 className="text-4xl font-bold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[white]">
                   Join SoulShare: <br />
