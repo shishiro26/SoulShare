@@ -29,7 +29,7 @@ const SignUp = () => {
         <Navbar />
         <section>
           <div className="bg-gray-50 dark:bg-gray-900 bg-gray-800">
-            <div className="py-4 px-4 mx-auto max-w-screen-xl lg:py-4 grid lg:grid-cols-2 gap-8 lg:gap-16">
+            <div className="py-4 px-4 mx-auto max-w-screen-xl lg:py-4 grid lg:grid-cols-2 gap-8 lg:gap-6">
               <div className="flex flex-col justify-center">
                 <h3 className="text-4xl font-bold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[white]">
                   Join SoulShare: <br/><span className="text-4xl font-bold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[#51D6FF]"> <Typewriter
@@ -71,8 +71,8 @@ const SignUp = () => {
                   </svg>
                 </NavLink>
               </div>
-              <div className="w-full lg:max-w-xl p-6 space-y-6 sm:p-8 bg-white rounded-lg shadow-xl dark:bg-gray-800">
-                <div className="text-2xl font-bold tex-gray-900 dark:text-white">
+              <div className="w-full lg:max-w-xl p-6 space-y-6 sm:p-8 bg-white rounded-lg shadow-xl dark:bg-gray-800 ">
+                <div className="text-2xl font-bold tex-gray-900 dark:text-white sm:w-[100%]">
                   <h2>Sign up to SoulShare</h2>
                 </div>
                 <form
@@ -80,8 +80,8 @@ const SignUp = () => {
                   onSubmit={handleFormSubmit}
                   className="mt-8 space-y-5 "
                 >
-                  <div className="flex flex-row justify-between flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-                    <div className="w-[50%] sm:w-[100%] md:w-[50%] lg:w-[50%]">
+                  <div className="flex flex-row justify-between flex flex-col space-y-4 sm:flex-row sm:justify-center  sm:space-y-0 sm:space-x-4">
+                    <div className=" sm:w-[100%] md:w-[50%] lg:w-[50%]">
                       <label
                         htmlFor="firstName"
                         className="block mb-2 text-sm font-medium text-medium dark:text-white"
@@ -96,11 +96,11 @@ const SignUp = () => {
                         onChange={(e) => {
                           setData({ ...data, firstName: e.target.value });
                         }}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full sm:w-[100%]  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required
                       />
                     </div>
-                    <div className="w-[50%] sm:w-[100%] md:w-[50%] lg:w-[50%]">
+                    <div className=" sm:w-[100%] md:w-[50%] lg:w-[50%]">
                       <label
                         htmlFor="lastName"
                         className="block mb-2 text-sm font-medium text-medium dark:text-white"
@@ -177,7 +177,6 @@ const SignUp = () => {
                         className="bg-gray-50 border border-gray-300 border-r-0 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-r-none"
                         required
                       />
-
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         height="44px"
