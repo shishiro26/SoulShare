@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Typewriter } from 'react-simple-typewriter'
+import { Typewriter } from "react-simple-typewriter";
 import Navbar from "../Components/Navbar";
 import ShareSocials from "../Components/ShareSocials";
+
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState("");
   const togglePassword = () => {
@@ -21,7 +22,6 @@ const SignUp = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
   };
- 
 
   return (
     <>
@@ -32,22 +32,25 @@ const SignUp = () => {
             <div className="py-4 px-4 mx-auto max-w-screen-xl lg:py-4 grid lg:grid-cols-2 gap-8 lg:gap-6">
               <div className="flex flex-col justify-center">
                 <h3 className="text-4xl font-bold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[white]">
-                  Join SoulShare: <br/><span className="text-4xl font-bold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[#51D6FF]"> <Typewriter
-            words={['Sharing Surplus!', 'Spreading Hope!']}
-            loop={5}
-            cursor
-            cursorStyle='_'
-            typeSpeed={90}
-            deleteSpeed={50}
-            delaySpeed={1000}
-          
-          /></span>
-                  
+                  Join SoulShare: <br />
+                  <span className="text-4xl font-bold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[#51D6FF]">
+                    {" "}
+                    <Typewriter
+                      words={["Sharing Surplus!", "Spreading Hope!"]}
+                      loop={5}
+                      cursor
+                      cursorStyle="_"
+                      typeSpeed={90}
+                      deleteSpeed={50}
+                      delaySpeed={1000}
+                    />
+                  </span>
                 </h3>
                 <p className="mb-6 text-lg font-normal text-gray-500 dark:text-[#8D9EC6]">
-                  Join us in turning leftovers into lifelines and unworn clothes
-                  into newfound hope. Together, we create a world where
-                  compassion knows no bounds. Join SoulShare today
+                  Make a meaningful impact by sharing surplus food with those
+                  who need it most. Join SoulShare and be a part of a
+                  compassionate community that`s dedicated to reducing waste and
+                  nourishing lives.
                 </p>
                 <NavLink
                   to="#"
@@ -96,6 +99,8 @@ const SignUp = () => {
                         onChange={(e) => {
                           setData({ ...data, firstName: e.target.value });
                         }}
+                        placeholder="example"
+                        autoComplete="off"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full sm:w-[100%]  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required
                       />
@@ -115,6 +120,8 @@ const SignUp = () => {
                         onChange={(e) => {
                           setData({ ...data, lastName: e.target.value });
                         }}
+                        placeholder="example"
+                        autoComplete="off"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required
                       />
@@ -135,6 +142,8 @@ const SignUp = () => {
                       onChange={(e) => {
                         setData({ ...data, email: e.target.value });
                       }}
+                      placeholder="example@gmail.com"
+                      autoComplete="off"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       required
                     />
@@ -154,6 +163,8 @@ const SignUp = () => {
                       onChange={(e) => {
                         setData({ ...data, contactNumber: e.target.value });
                       }}
+                      placeholder="***** *****"
+                      autoComplete="off"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       required
                     />
@@ -171,6 +182,8 @@ const SignUp = () => {
                         name="password"
                         id="password"
                         value={data.password}
+                        placeholder="••••••••"
+                        autoComplete="off"
                         onChange={(e) => {
                           setData({ ...data, password: e.target.value });
                         }}
@@ -219,6 +232,8 @@ const SignUp = () => {
                         onChange={(e) => {
                           setData({ ...data, confirmPassword: e.target.value });
                         }}
+                        placeholder="••••••••"
+                        autoComplete="off"
                         className="bg-gray-50 border border-gray-300 border-r-0 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-r-none"
                         required
                       />
@@ -250,32 +265,6 @@ const SignUp = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-start">
-                    <div className="flex items-center h-5">
-                      <input
-                        id="remember"
-                        aria-describedby="remember"
-                        name="remember"
-                        type="checkbox"
-                        className="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
-                        required
-                      />
-                    </div>
-                    <div className="ml-3 text-sm">
-                      <label
-                        htmlFor="remember"
-                        className="font-medium text-gray-500 dark:text-gray-400"
-                      >
-                        Remember this device
-                      </label>
-                    </div>
-                    <a
-                      href="#"
-                      className="ml-auto text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
-                    >
-                      Lost Password?
-                    </a>
-                  </div>
                   <button
                     type="submit"
                     className="w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -283,10 +272,13 @@ const SignUp = () => {
                     Create Account
                   </button>
                   <div className="text-sm font-medium text-gray-900 dark:text-white">
-                    Not registered yet?
-                    <a className="text-blue-600 hover:underline dark:text-blue-500">
-                      Login into your account
-                    </a>
+                    Have an account?
+                    <NavLink
+                      to="/login"
+                      className="text-blue-600 hover:underline dark:text-blue-500"
+                    >
+                      Login to your account
+                    </NavLink>
                   </div>
                 </form>
               </div>
