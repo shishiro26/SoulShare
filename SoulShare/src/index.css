@@ -2,6 +2,157 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: dark light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+@media (max-width: 1040px)
+:root {
+    --fontSizeH0: 5rem;
+    --fontSizeH1: 3.75rem;
+    --fontSizeH2: 3rem;
+    --fontSizeH3: 2rem;
+    --fontSizeH4: 1.5rem;
+    --fontSizeH5: 1.25rem;
+}
+@media (max-width: 1680px)
+:root {
+    --maxWidthS: 480px;
+    --maxWidthM: 640px;
+    --maxWidthL: 1000px;
+    --maxWidthXL: 1100px;
+    --spaceOuter: 48px;
+    --fontSizeH0: 6.25rem;
+    --fontSizeH1: 4.375rem;
+    --fontSizeH2: 3.125rem;
+    --fontSizeH3: 2.25rem;
+    --fontSizeH4: 1.625rem;
+    --fontSizeH5: 1.375rem;
+}
+@media (max-width: 2080px)
+:root {
+    --fontSizeH0: 7.5rem;
+    --fontSizeH1: 5rem;
+}
+:root {
+    --rgbBlack: 0 0 0;
+    --rgbWhite: 255 255 255;
+    --bezierFastoutSlowin: cubic-bezier(0.4, 0.0, 0.2, 1);
+    --durationXS: 200ms;
+    --durationS: 300ms;
+    --durationM: 400ms;
+    --durationL: 600ms;
+    --durationXL: 800ms;
+    --systemFontStack: system-ui, -apple-system, BlinkMacSystemFont, San Francisco, Roboto, Segoe UI, Ubuntu, Helvetica Neue, sans-serif;
+    --fontStack: Gotham, var(--systemFontStack);
+    --monoFontStack: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+    --japaneseFontStack: ヒラギノ角ゴ Pro W3, Hiragino Kaku Gothic Pro, Hiragino Sans, Osaka, メイリオ, Meiryo, Segoe UI, sans-serif;
+    --fontWeightRegular: 400;
+    --fontWeightMedium: 500;
+    --fontWeightBold: 700;
+    --fontSizeH0: 8.75rem;
+    --fontSizeH1: 6.25rem;
+    --fontSizeH2: 3.625rem;
+    --fontSizeH3: 2.375rem;
+    --fontSizeH4: 1.75rem;
+    --fontSizeH5: 1.5rem;
+    --fontSizeBodyXL: 1.375rem;
+    --fontSizeBodyL: 1.25rem;
+    --fontSizeBodyM: 1.125rem;
+    --fontSizeBodyS: 1rem;
+    --fontSizeBodyXS: 0.875rem;
+    --lineHeightTitle: 1.1;
+    --lineHeightBody: 1.6;
+    --maxWidthS: 540px;
+    --maxWidthM: 720px;
+    --maxWidthL: 1096px;
+    --maxWidthXL: 1680px;
+    --spaceOuter: 64px;
+    --spaceXS: 4px;
+    --spaceS: 8px;
+    --spaceM: 16px;
+    --spaceL: 24px;
+    --spaceXL: 32px;
+    --space2XL: 48px;
+    --space3XL: 64px;
+    --space4XL: 96px;
+    --space5XL: 128px;
+    --zIndex0: 0;
+    --zIndex1: 4;
+    --zIndex2: 8;
+    --zIndex3: 16;
+    --zIndex4: 32;
+    --zIndex5: 64;
+}
+*, :after, :before {
+    box-sizing: border-box;
+}
+*, :after, :before {
+    box-sizing: border-box;
+}
+::selection {
+    background: rgb(var(--rgbAccent));
+    color: rgb(var(--rgbBlack));
+}
 
+.Navbar_nav__Ymaux {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 1 auto;
+  max-width: var(--space2XL);
+}
+.Navbar_navList__mg4Oa {
+  transform: rotate(-90deg) translate3d(-50%,0,0);
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative;
+  top: calc(var(--spaceM) * -1);
+}
+.Navbar_navLink__Havgb {
+  padding: var(--spaceM);
+  color: rgb(var(--rgbText)/.8);
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--headerNavFontSize);
+  text-decoration: none;
+  position: relative;
+  transition: color var(--durationS) ease .1s;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;}
 
+@media screen and (max-height: 853px)
+.Navbar_navLink__Havgb {
+  padding: var(--spaceS);}
 
+.Navbar_navIcons__KC2a8 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: var(--zIndex2);
+}
+.Navbar_navIconLink__W8ZFX {
+  display: flex;
+  margin-top: -10px;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spaceS);
+  width: calc(var(--space2XL) - 12px);
+  height: var(--space2XL);
+  color: var(--colorTextLight);
+  transition: color var(--durationM) var(--bezierFastoutSlowin);
+}
+
+.Navbar_navIcon__lI_cE {
+  fill: currentColor;
+  transition: fill var(--durationM) ease;
+}
+:where(svg,img,picture,video,iframe,canvas) {
+  display: block;
+}
