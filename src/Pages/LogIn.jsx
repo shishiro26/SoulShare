@@ -24,9 +24,9 @@ const Login = () => {
         <Navbar />
         <section>
           <div className="bg-gray-50 dark:bg-gray-900 bg-gray-800">
-            <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16">
+            <div className="py-8 px-4 mx-auto max-w-[100%] lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16">
               <div className="flex flex-col justify-center">
-                <h3 className="text-4xl font-bold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[white]">
+                <h3 className="text-4xl font-bold text-gray-600 mb-4 text-4xl tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[white]">
                   Reconnect with SoulShare:
                   <br />
                   <span className="text-4xl font-bold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[#51D6FF]">
@@ -174,7 +174,7 @@ const Login = () => {
                   </div>
                   <button
                     type="submit"
-                    className="w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    className="w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto lg:w-[100%] dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
                     Login into your Account
                   </button>
