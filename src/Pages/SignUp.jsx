@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { Typewriter } from 'react-simple-typewriter'
 import Navbar from "../Components/Navbar";
 import ShareSocials from "../Components/ShareSocials";
 const SignUp = () => {
@@ -20,6 +21,8 @@ const SignUp = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
   };
+ 
+
   return (
     <>
       <div className="flex flex-row">
@@ -28,10 +31,20 @@ const SignUp = () => {
           <div className="bg-gray-50 dark:bg-gray-900 bg-gray-800">
             <div className="py-4 px-4 mx-auto max-w-screen-xl lg:py-4 grid lg:grid-cols-2 gap-8 lg:gap-16">
               <div className="flex flex-col justify-center">
-                <h3 className="text-4xl font-bold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[#51D6FF]">
-                  Join SoulShare: Sharing Surplus, Spreading Hope
+                <h3 className="text-4xl font-bold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[white]">
+                  Join SoulShare: <br/><span className="text-4xl font-bold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[#51D6FF]"> <Typewriter
+            words={['Sharing Surplus!', 'Spreading Hope!']}
+            loop={5}
+            cursor
+            cursorStyle='_'
+            typeSpeed={90}
+            deleteSpeed={50}
+            delaySpeed={1000}
+          
+          /></span>
+                  
                 </h3>
-                <p className="mb-6 text-lg font-normal text-gray-500 dark:text-[#37FF8B]">
+                <p className="mb-6 text-lg font-normal text-gray-500 dark:text-[#8D9EC6]">
                   Join us in turning leftovers into lifelines and unworn clothes
                   into newfound hope. Together, we create a world where
                   compassion knows no bounds. Join SoulShare today

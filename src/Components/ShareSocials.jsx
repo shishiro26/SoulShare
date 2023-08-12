@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 const Share = () => {
   return (
-    <aside>
+    <aside className="bg-gray-50 dark:bg-gray-900 bg-gray-800">
       <div
         data-aos="right"
         className=" object-right text-xs text-right right-0 pr-4 pl-4  z-50 aos-init aos-animate"
