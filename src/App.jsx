@@ -1,12 +1,9 @@
-import Navbar from "./Components/Navbar";
-import ShareSocials from "./Components/ShareSocials";
-
+import SignUp from "./Pages/SignUp";
 
 function App() {
   return (
     <>
-    <Navbar/>
-     <ShareSocials/>
+      <SignUp />
     </>
   );
 }
