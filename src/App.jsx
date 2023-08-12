@@ -1,7 +1,12 @@
+import Navbar from "./Components/Navbar";
+import ShareSocials from "./Components/ShareSocials";
+
+
 function App() {
   return (
     <>
-      <h1 className="text-blue-600">This is the SoulShare</h1>
+    <Navbar/>
+     <ShareSocials/>
     </>
   );
 }
