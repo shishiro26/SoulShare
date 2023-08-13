@@ -10,12 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
+
     "flowbite": "^1.8.1",
-=======
+
     "@headlessui/react": "^1.7.16",
     "@heroicons/react": "^2.0.18",
->>>>>>> 785428d04fcfe623e31f8b3638d55c3cf09d613e
+
     "framer-motion": "^10.15.1",
     "next": "^13.4.13",
     "react": "^18.2.0",
