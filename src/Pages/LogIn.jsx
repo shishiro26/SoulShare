@@ -19,7 +19,7 @@ const Login = () => {
   };
 
   return (
-    <>
+    <>  
       <div className="flex flex-row">
         <Navbar />
         <section>
@@ -46,7 +46,8 @@ const Login = () => {
                   caring uproars. Log in now, as your kindness soars, creating
                   ripples of change that the heart adores!
                 </p>
-                <NavLink
+
+                <NavLink 
                   to="#"
                   className="text-blue-600 dark:text-blue-500 hover:underline font-medium text-lg inline-flex items-center"
                 >
@@ -174,7 +175,7 @@ const Login = () => {
                   </div>
                   <button
                     type="submit"
-                    className="w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto lg:w-[100%] dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    className=" w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-[100%] lg:w-[100%] dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
                     Login into your Account
                   </button>
