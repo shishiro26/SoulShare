@@ -19,12 +19,7 @@ function App() {
     // </Routes>
   
     <div>
-    <div>
-      {/* <CardClothes/> */}
-      {/* <FoodCard/> */}
-      <Clock/>
-      <Timer/>
-    </div>
+    
 
     <Routes>
       <Route path="/" element={<Landing/>} />
