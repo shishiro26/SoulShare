@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
 import Navbar from "../Components/Navbar";
 import ShareSocials from "../Components/ShareSocials";
+import { motion } from "framer-motion";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState("");
@@ -265,17 +266,19 @@ const SignUp = () => {
                     </div>
                   </div>
 
-                  <button
+                  <motion.button
                     type="submit"
-                    className="w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="px-5 py-3 text-base font-semibold text-center text-white bg-[#51D6FF] rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-[#51D6FF] dark:hover:bg-[#37FF8B] dark:focus:ring-blue-800 transition duration-500 ease-in-out"
                   >
                     Create Account
-                  </button>
+                  </motion.button>
                   <div className="text-sm font-medium text-gray-900 dark:text-white">
                     Have an account?
                     <NavLink
                       to="/login"
-                      className="text-blue-600 hover:underline dark:text-blue-500"
+                      className="text-blue-600 hover:underline dark:hover:text-[#37FF8B] dark:text-[#51D6FF]"
                     >
                       Login to your account
                     </NavLink>
