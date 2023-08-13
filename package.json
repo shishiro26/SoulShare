@@ -10,11 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+
+    "flowbite": "^1.8.1",
+
     "@headlessui/react": "^1.7.16",
     "@heroicons/react": "^2.0.18",
+
     "framer-motion": "^10.15.1",
     "next": "^13.4.13",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
     "react-scripts": "^5.0.1",
