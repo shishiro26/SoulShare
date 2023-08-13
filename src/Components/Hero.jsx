@@ -5,6 +5,8 @@
 import ShareSocials from "../Components/ShareSocials.jsx";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
+import { Typewriter } from "react-simple-typewriter";
+
 // const navigation = [
 //   { name: "Product", href: "#" },
 //   { name: "Features", href: "#" },
@@ -30,15 +32,32 @@ export default function Landing() {
             }}
           />
         </div>
-        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+        <div className="mx-auto mt-[-50px] max-w-4xl py-32 sm:py-48 lg:py-56">
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-100 sm:text-6xl">
-              Data to enrich your online business
+            <h1 className="text-4xl text-[#51D6FF] font-bold tracking-tight text-[#51D6FF] sm:text-6xl">
+              Elevate Humanity:
+              <br />
+              <span className="text-3xl font-bold tracking-tight text-gray-100 sm:text-6xl">
+                Transform Lives through Clothing and Food Donations!
+              </span>
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-              lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-              fugiat aliqua.
+              Join us in making a meaningful difference in the lives of those in
+              need. Our platform connects compassionate individuals and
+              businesses with the power to give. Donate gently used clothing and
+              nourishing food items to underserved communities, spreading 
+              <span className="mt-6 text-lg leading-8 text-gray-600 tracking-tight leading-none text-[#51D6FF] md:text-lg lg:text-lg dark:text-[#51D6FF]">
+                    <Typewriter
+                      words={[" Warmth", " Comfort", " Hope"]}
+                      loop={10000}
+                      cursor
+                      cursorStyle="|"
+                      typeSpeed={90}
+                      deleteSpeed={50}
+                      delaySpeed={1000}
+                    />
+                  </span>
+            
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <NavLink
@@ -49,7 +68,7 @@ export default function Landing() {
               </NavLink>
               <NavLink
                 to="#"
-                className="text-sm font-semibold leading-6 text-green-500"
+                className="text-sm font-semibold leading-6 text-[#51D6FF]"
               >
                 Learn more <span aria-hidden="true">→</span>
               </NavLink>
