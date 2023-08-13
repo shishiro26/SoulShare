@@ -4,7 +4,7 @@ const Share = () => {
     <aside >
       <div
         data-aos="right"
-        className="sticky top-0 object-right text-xs text-right right-0 pr-4 pl-4 z-50 aos-init aos-animate"
+        className="sticky top-0 object-right text-xs text-right right-0 pr-4 pl-4 z-50 aos-init aos-animate mt-10"
       >
         <NavLink
           to="#"
