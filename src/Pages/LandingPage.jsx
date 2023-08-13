@@ -3,20 +3,39 @@ import Feature from "../Components/Feature.jsx";
 import AboutUs from "../Components/AboutUs.jsx";
 import Testimonials from "../Components/Testimonials.jsx";
 import Navbar from "../Components/Navbar";
-import ShareSocials from "../Components/ShareSocials";
+import { motion, useInView, useAnimation } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 const LandingPage = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const mainControls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      mainControls.start("visible");
+    }
+  }, [isInView]);
+
   return (
     <>
       <div className="flex flex-row">
         <Navbar />
-        <div>
+        <motion.div
+          ref={ref}
+          variants={{
+            hidden: { opacity: 0, y: 75 },
+            visible: { opacity: 1, y: 0 },
+          }}
+          initial="hidden"
+          animate={mainControls}
+          transition={{ duration: 0.5, delay: 0.25 }}
+        >
           <Hero />
           <Feature />
           <AboutUs />
           <Testimonials />
-        </div>
-        <ShareSocials />
+        </motion.div>
       </div>
     </>
   );
