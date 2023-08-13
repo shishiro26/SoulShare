@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
 import Navbar from "../Components/Navbar";
 import ShareSocials from "../Components/ShareSocials";
+import { motion } from "framer-motion";
 const Login = () => {
   const [showPassword, setShowPassword] = useState("");
   const togglePassword = () => {
@@ -19,7 +20,7 @@ const Login = () => {
   };
 
   return (
-    <>  
+    <>
       <div className="flex flex-row">
         <Navbar />
         <section>
@@ -47,7 +48,7 @@ const Login = () => {
                   ripples of change that the heart adores!
                 </p>
 
-                <NavLink 
+                <NavLink
                   to="#"
                   className="text-blue-600 dark:text-blue-500 hover:underline font-medium text-lg inline-flex items-center"
                 >
@@ -71,7 +72,7 @@ const Login = () => {
               </div>
               <div className="w-full lg:max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow-xl dark:bg-gray-800">
                 <div className="text-2xl font-bold tex-gray-900 dark:text-white sm:w-[100%]">
-                  <h2>Sign up to SoulShare</h2>
+                  <h2>Sign In to SoulShare</h2>
                 </div>
                 <form
                   action="#"
@@ -168,17 +169,19 @@ const Login = () => {
                     </div>
                     <a
                       href="#"
-                      className="ml-auto text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
+                      className="ml-auto text-sm font-medium text-[#51D6FF] hover:underline dark:hover:text-[#37FF8B] dark:text-[#51D6FF]"
                     >
                       Lost Password?
                     </a>
                   </div>
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.9 }}
                     type="submit"
-                    className=" w-full px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-[100%] lg:w-[100%] dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    className=" w-full px-5 py-3 text-base font-semibold text-center text-white bg-[#51D6FF] rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-[100%] lg:w-[100%] dark:bg-[#51D6FF] dark:hover:bg-[#37FF8B] dark:focus:ring-blue-800 transition duration-500 ease-in-out"
                   >
                     Login into your Account
-                  </button>
+                  </motion.button>
                   <div className="flex flex-row items-center">
                     <hr className="w-[48%] sm:w-[48%] md:w-[48%] lg:w-[48%]" />
                     <div className="m-1">
@@ -188,7 +191,7 @@ const Login = () => {
                     </div>
                     <hr className="w-[48%] sm:w-[48%] md:w-[48%] lg:w-[48%]" />
                   </div>
-                  <div className="flex flex-row justify-center items-center border border-gray-400 rounded-lg p-2.5">
+                  <div className="flex flex-row justify-center items-center border border-gray-400 rounded-lg p-2.5 hover:bg-gray-100 hover:text-gray-700 transition ease-in-out duration-500">
                     <svg
                       width="1em"
                       height="1em"
@@ -230,7 +233,7 @@ const Login = () => {
                     Not registered yet?
                     <NavLink
                       to="/signup"
-                      className="text-blue-600 hover:underline dark:text-blue-500"
+                      className="text-blue-600 hover:underline dark:hover:text-[#37FF8B] dark:text-[#51D6FF]"
                     >
                       Create Account
                     </NavLink>
