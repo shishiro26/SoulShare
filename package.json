@@ -10,16 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-
     "@bsmnt/scrollytelling": "^0.2.4",
     "@headlessui/react": "^1.7.16",
     "@heroicons/react": "^2.0.18",
     "@studio-freight/lenis": "^1.0.19",
     "flowbite": "^1.8.1",
-
-    "@headlessui/react": "^1.7.16",
-    "@heroicons/react": "^2.0.18",
-
     "framer-motion": "^10.15.1",
     "gsap": "^3.12.2",
     "next": "^13.4.13",

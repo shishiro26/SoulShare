@@ -10,18 +10,17 @@ const people = [
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
   },
   {
-    name: "Chitta Sri Sankara Naga Pavana Saketha Ram",
+    name: "Saketh Ram",
     role: "Backend Developer",
     imageUrl:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
   },
   {
-    name: "Kota",
+    name: "Kota-karthik",
     role: "Frontend Developer",
     imageUrl:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
   },
-  // More people...
 ];
 const AboutUs = () => {
   const ref = useRef(null);
@@ -34,7 +33,7 @@ const AboutUs = () => {
     }
   }, [isInView]);
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row" id="about-link">
       <motion.div
         ref={ref}
         variants={{
@@ -59,34 +58,34 @@ const AboutUs = () => {
             />
           </div>
           <div className="py-24 sm:py-32">
-            <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
-              <div className="max-w-2xl">
-                <span className="text-4xl font-bold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[#51D6FF]">
+            <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 justify-between">
+              <div className="max-w-4xl">
+                <span className="text-4xl font-extrabold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[#51D6FF]">
                   <Typewriter
                     words={["Crafting Dreams", "Building Futures"]}
                     loop={10000}
                     cursor
-                    cursorStyle="_"
+                    cursorStyle="..."
                     typeSpeed={90}
                     deleteSpeed={50}
                     delaySpeed={1000}
                   />
                 </span>
                 <br />
-                <h2 className="text-3xl font-bold tracking-tight text-[white] sm:text-4xl ">
+                <h2 className="text-3xl font-bold tracking-tight leading-none text-[white] sm:text-4xl ">
                   The{" "}
-                  <span class="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
+                  <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
                     Heart
                   </span>{" "}
                   and{" "}
-                  <span class="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
+                  <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
                     Soul
                   </span>{" "}
                   Behind Our Purpose
                 </h2>
-                <p className="mt-6 text-lg leading-8 text-gray-300">
+                <p className="mt-6  leading-8  mb-6 text-lg font-normal text-gray-500">
                   Guided by a passion for positive change, we are more than a
-                  platform. We're a collective of dream weavers, weaving threads
+                  platform. We`re a collective of dream weavers, weaving threads
                   of hope through every garment donated and every meal shared.
                   Our journey is an artful symphony of compassion, connecting
                   hearts to hands and giving voice to the silent needs of
@@ -95,11 +94,11 @@ const AboutUs = () => {
               </div>
               <ul
                 role="list"
-                className="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2"
+                className="grid gap-x-8 gap-y-12 sm:grid-cols-1 sm:gap-y-16 xl:col-span-2"
               >
                 {people.map((person) => (
                   <li key={person.name}>
-                    <div className="flex items-center gap-x-6">
+                    <div className="flex items-center justify-center gap-x-6">
                       <img
                         className="h-16 w-16 rounded-full"
                         src={person.imageUrl}
@@ -134,10 +133,7 @@ const AboutUs = () => {
         </div>
       </motion.div>
     </div>
-    );
-}
- 
+  );
+};
+
 export default AboutUs;
-
-
-

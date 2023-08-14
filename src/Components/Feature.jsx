@@ -45,7 +45,7 @@ export default function FeaturesSection() {
     }
   }, [isInView]);
   return (
-    <div className="bg-white py-24 sm:py-32">
+    <div className="bg-white py-24 sm:py-32" id="feature-link">
       <motion.div
         ref={ref}
         variants={{

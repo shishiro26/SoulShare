@@ -18,7 +18,7 @@ export default function Landing() {
   // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="flex flex-row ">
+    <div className="flex flex-row"  id="home-link">
       <div className="relative isolate px-6 pt-14 lg:px-8 w-[100%]">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
