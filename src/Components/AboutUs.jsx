@@ -7,19 +7,19 @@ const people = [
     name: "Shishiro Dheeravath",
     role: "Frontend Developer",
     imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSudU6gmyeog5RWlz8b2FUxARwyrD-GMo9txw&usqp=CAU",
   },
   {
     name: "Saketh Ram",
     role: "Backend Developer",
     imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBNnH7hPrYmvHPtcImonVIDwGgMIgtg5URew&usqp=CAU",
   },
   {
     name: "Kota-karthik",
     role: "Frontend Developer",
     imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSimMDuMEMZWRWmAqL1It9mF1Nw1o_iMY2UVQ&usqp=CAU",
   },
 ];
 const AboutUs = () => {
@@ -58,64 +58,80 @@ const AboutUs = () => {
             />
           </div>
           <div className="py-24 sm:py-32">
-            <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 justify-between">
-              <div className="max-w-4xl">
-                <span className="text-4xl font-extrabold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[#51D6FF]">
-                  <Typewriter
-                    words={["Crafting Dreams", "Building Futures"]}
-                    loop={10000}
-                    cursor
-                    cursorStyle="..."
-                    typeSpeed={90}
-                    deleteSpeed={50}
-                    delaySpeed={1000}
-                  />
-                </span>
-                <br />
-                <h2 className="text-3xl font-bold tracking-tight leading-none text-[white] sm:text-4xl ">
-                  The{" "}
-                  <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
-                    Heart
-                  </span>{" "}
-                  and{" "}
-                  <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
-                    Soul
-                  </span>{" "}
-                  Behind Our Purpose
-                </h2>
-                <p className="mt-6  leading-8  mb-6 text-lg font-normal text-gray-500">
-                  Guided by a passion for positive change, we are more than a
-                  platform. We`re a collective of dream weavers, weaving threads
-                  of hope through every garment donated and every meal shared.
-                  Our journey is an artful symphony of compassion, connecting
-                  hearts to hands and giving voice to the silent needs of
-                  communities.
-                </p>
-              </div>
-              <ul
-                role="list"
-                className="grid gap-x-8 gap-y-12 sm:grid-cols-1 sm:gap-y-16 xl:col-span-2"
+            <div className="mx-auto grid max-w-[100%] gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 justify-between">
+              <motion.div
+                ref={ref}
+                initial={{ x: "-100%" }}
+                animate={isInView ? { x: 0 } : { x: "100%" }}
+                transition={{ duration: 0.5, delay: 0.4, ease: "easeInOut" }}
+                className=" text-gray-500  rounded-lg  "
               >
-                {people.map((person) => (
-                  <li key={person.name}>
-                    <div className="flex items-center justify-center gap-x-6">
-                      <img
-                        className="h-16 w-16 rounded-full"
-                        src={person.imageUrl}
-                        alt=""
-                      />
-                      <div>
-                        <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-100">
-                          {person.name}
-                        </h3>
-                        <p className="text-sm font-semibold leading-6 text-indigo-600">
-                          {person.role}
-                        </p>
+                <div className="max-w-[100%]">
+                  <span className="text-4xl font-extrabold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[#51D6FF]">
+                    <Typewriter
+                      words={["Crafting Dreams", "Building Futures"]}
+                      loop={10000}
+                      cursor
+                      cursorStyle="..."
+                      typeSpeed={90}
+                      deleteSpeed={50}
+                      delaySpeed={1000}
+                    />
+                  </span>
+                  <br />
+                  <h2 className="text-3xl font-bold tracking-tight leading-none text-[white] sm:text-4xl ">
+                    The{" "}
+                    <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
+                      Heart
+                    </span>{" "}
+                    and{" "}
+                    <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
+                      Soul
+                    </span>{" "}
+                    Behind Our Purpose
+                  </h2>
+                  <p className="mt-6  leading-8  mb-6 text-lg font-normal text-gray-500">
+                    Guided by a passion for positive change, we are more than a
+                    platform. We`re a collective of dream weavers, weaving
+                    threads of hope through every garment donated and every meal
+                    shared. Our journey is an artful symphony of compassion,
+                    connecting hearts to hands and giving voice to the silent
+                    needs of communities.
+                  </p>
+                </div>
+              </motion.div>
+              <motion.div
+                ref={ref}
+                initial={{ x: "100%" }}
+                animate={isInView ? { x: 0 } : { x: "100%" }}
+                transition={{ duration: 0.5, delay: 0.4, ease: "easeInOut" }}
+                className=" text-gray-500 p-8 rounded-lg grid gap-x-8 gap-y-12 sm:grid-cols-1 sm:gap-y-16 xl:col-span-2"
+              >
+                <ul
+                  role="list"
+                  className="grid gap-x-8 gap-y-12 sm:grid-cols-1 sm:gap-y-16 xl:col-span-2"
+                >
+                  {people.map((person) => (
+                    <li key={person.name}>
+                      <div className="flex items-center justify-center gap-x-6">
+                        <img
+                          className="h-16 w-16 rounded-full"
+                          src={person.imageUrl}
+                          alt=""
+                        />
+                        <div>
+                          <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-100">
+                            {person.name}
+                          </h3>
+                          <p className="text-sm font-semibold leading-6 text-indigo-600">
+                            {person.role}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
             </div>
           </div>
           <div

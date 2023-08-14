@@ -54,8 +54,15 @@ const SignUp = () => {
                   nourishing lives.
                 </p>
                 <NavLink
-                  to="#"
+                  to="/"
                   className="text-blue-600 dark:text-blue-500 hover:underline font-medium text-lg inline-flex items-center"
+                  onClick={() => {
+                    const anchor = document.querySelector("#about-link");
+                    anchor.scrollIntoView({
+                      behavior: "smooth",
+                      block: "center",
+                    });
+                  }}
                 >
                   Read more about our App
                   <svg

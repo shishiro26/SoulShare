@@ -18,7 +18,7 @@ export default function Landing() {
   // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="flex flex-row"  id="home-link">
+    <div className="flex flex-row" id="home-link">
       <div className="relative isolate px-6 pt-14 lg:px-8 w-[100%]">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -45,19 +45,18 @@ export default function Landing() {
               Join us in making a meaningful difference in the lives of those in
               need. Our platform connects compassionate individuals and
               businesses with the power to give. Donate gently used clothing and
-              nourishing food items to underserved communities, spreading 
+              nourishing food items to underserved communities, spreading
               <span className="mt-6 text-lg leading-8 text-gray-600 tracking-tight leading-none text-[#51D6FF] md:text-lg lg:text-lg dark:text-[#51D6FF]">
-                    <Typewriter
-                      words={[" Warmth", " Comfort", " Hope"]}
-                      loop={10000}
-                      cursor
-                      cursorStyle="|"
-                      typeSpeed={90}
-                      deleteSpeed={50}
-                      delaySpeed={1000}
-                    />
-                  </span>
-            
+                <Typewriter
+                  words={[" Warmth", " Comfort", " Hope"]}
+                  loop={10000}
+                  cursor
+                  cursorStyle="|"
+                  typeSpeed={90}
+                  deleteSpeed={50}
+                  delaySpeed={1000}
+                />
+              </span>
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <NavLink
@@ -67,8 +66,15 @@ export default function Landing() {
                 Get started
               </NavLink>
               <NavLink
-                to="#"
+                to="/"
                 className="text-sm font-semibold leading-6 text-[#51D6FF]"
+                onClick={() => {
+                  const anchor = document.querySelector("#about-link");
+                  anchor.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                  });
+                }}
               >
                 Learn more <span aria-hidden="true">→</span>
               </NavLink>
