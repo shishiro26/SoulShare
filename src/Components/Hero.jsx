@@ -1,22 +1,8 @@
-// import { useState } from "react";
-// import { Dialog } from "@headlessui/react";
-// import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-// import Navbar from "../Components/Navbar.jsx";
 import ShareSocials from "../Components/ShareSocials.jsx";
-import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
 
-// const navigation = [
-//   { name: "Product", href: "#" },
-//   { name: "Features", href: "#" },
-//   { name: "Marketplace", href: "#" },
-//   { name: "Company", href: "#" },
-// ];
-
 export default function Landing() {
-  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   return (
     <div className="flex flex-row" id="home-link">
       <div className="relative isolate px-6 pt-14 lg:px-8 w-[100%]">
@@ -59,25 +45,42 @@ export default function Landing() {
               </span>
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <NavLink
-                to="#"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Get started
-              </NavLink>
-              <NavLink
-                to="/"
-                className="text-sm font-semibold leading-6 text-[#51D6FF]"
-                onClick={() => {
-                  const anchor = document.querySelector("#about-link");
-                  anchor.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center",
-                  });
-                }}
-              >
-                Learn more <span aria-hidden="true">→</span>
-              </NavLink>
+              <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+                <NavLink
+                  to="#"
+                  className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+                >
+                  Get started
+                  <svg
+                    className="w-3.5 h-3.5 ml-2"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 10"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M1 5h12m0 0L9 1m4 4L9 9"
+                    />
+                  </svg>
+                </NavLink>
+                <NavLink
+                  to="/"
+                  className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+                  onClick={() => {
+                    const anchor = document.querySelector("#about-link");
+                    anchor.scrollIntoView({
+                      behavior: "smooth",
+                      block: "center",
+                    });
+                  }}
+                >
+                  Learn more
+                </NavLink>
+              </div>
             </div>
           </div>
         </div>

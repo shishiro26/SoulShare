@@ -5,11 +5,11 @@ import Testimonials from "../Components/Testimonials.jsx";
 import Navbar from "../Components/Navbar";
 import { motion, useInView, useAnimation } from "framer-motion";
 import { useEffect, useRef } from "react";
-import NewItem from "../Components/modal/dropIn.jsx";
-import CardInput from "../Components/CardInput.jsx";
-import CardClothes from "../Components/CardClothes.jsx";
-import { useState } from "react";
-import Button from "../Components/modal/button.jsx";
+// import NewItem from "../Components/modal/dropIn.jsx";
+// import CardInput from "../Components/CardInput.jsx";
+// import CardClothes from "../Components/CardClothes.jsx";
+// import { useState } from "react";
+// import Button from "../Components/modal/button.jsx";
 
 const LandingPage = () => {
   const ref = useRef(null);

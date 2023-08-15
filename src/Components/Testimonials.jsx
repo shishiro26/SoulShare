@@ -1,4 +1,3 @@
-import React from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
 import { useEffect, useRef } from "react";
 
@@ -52,10 +51,10 @@ export default function Testimonials() {
 
             <div className="border border-gray-300 rounded-lg p-6">
               <p className="text-gray-700 mb-4">
-                "SoulShare's platform has given me the opportunity to make a
-                real difference in the lives of others. I've been able to donate
+                `SoulShare`s platform has given me the opportunity to make a
+                real difference in the lives of others. I`ve been able to donate
                 clothing and essentials to families in need, and the whole
-                process has been seamless and rewarding. Thank you, SoulShare!"
+                process has been seamless and rewarding. Thank you, SoulShare!`
               </p>
               <div className="flex items-center space-x-3">
                 <img
@@ -72,11 +71,11 @@ export default function Testimonials() {
 
             <div className="border border-gray-300 rounded-lg p-6">
               <p className="text-gray-700 mb-4">
-                "I've had the privilege of being a part of the SoulShare
+                `I`ve had the privilege of being a part of the SoulShare
                 community since its inception. The impact it has made on
                 bridging gaps and fostering connections is truly remarkable.
-                It's heartwarming to see people coming together to support one
-                another."
+                It`s heartwarming to see people coming together to support one
+                another.`
               </p>
               <div className="flex items-center space-x-3">
                 <img
