@@ -55,36 +55,40 @@ export default function FeaturesSection() {
 
   return (
     <section>
-      <motion.div variants={boxVariant} initial="hidden" animate="visible">
-        <div className="bg-white py-24 sm:py-32" id="feature-link">
-          <motion.div
-            ref={ref}
-            variants={{
-              hidden: { opacity: 0, y: 75 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            initial="hidden"
-            animate={mainControls}
-            transition={{ duration: 0.5, delay: 0.25 }}
-          >
-            {" "}
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-2xl lg:text-center">
-                <h2 className="text-base font-semibold leading-7 text-indigo-600">
-                  Join SoulShare
-                </h2>
-                <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                  Empowering
-                  <span className="px-2 text-white bg-blue-600 rounded dark:bg-blue-500 ml-2">
-                    Positive Change
-                  </span>
-                </p>
-                <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Make a difference by sharing your surplus resources with those
-                  who need them. SoulShare offers you a seamless platform to
-                  contribute and create meaningful impact.
-                </p>
-              </div>
+      <div className="bg-white py-24 sm:py-32" id="feature-link">
+        <motion.div
+          ref={ref}
+          variants={{
+            hidden: { opacity: 0, y: 75 },
+            visible: { opacity: 1, y: 0 },
+          }}
+          initial="hidden"
+          animate={mainControls}
+          transition={{ duration: 0.5, delay: 0.25 }}
+        >
+          {" "}
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-2xl lg:text-center">
+              <h2 className="text-base font-semibold leading-7 text-indigo-600">
+                Join SoulShare
+              </h2>
+              <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                Empowering
+                <span className="px-2 text-white bg-blue-600 rounded dark:bg-blue-500 ml-2">
+                  Positive Change
+                </span>
+              </p>
+              <p className="mt-6 text-lg leading-8 text-gray-600">
+                Make a difference by sharing your surplus resources with those
+                who need them. SoulShare offers you a seamless platform to
+                contribute and create meaningful impact.
+              </p>
+            </div>
+            <motion.div
+              variants={boxVariant}
+              initial="hidden"
+              animate="visible"
+            >
               <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
                 <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
                   {features.map((feature) => (
@@ -105,10 +109,10 @@ export default function FeaturesSection() {
                   ))}
                 </dl>
               </div>
-            </div>
-          </motion.div>
-        </div>
-      </motion.div>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }

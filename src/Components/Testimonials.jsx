@@ -1,7 +1,8 @@
+import React from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
 import { useEffect, useRef } from "react";
 
-export default function Example() {
+export default function Testimonials() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const mainControls = useAnimation();
@@ -24,43 +25,72 @@ export default function Example() {
         animate={mainControls}
         transition={{ duration: 0.5, delay: 0.25 }}
       >
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.100),white)] opacity-20" />
-        <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center" />
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
-          <img
-            className="mx-auto h-12"
-            src="https://tailwindui.com/img/logos/workcation-logo-indigo-600.svg"
-            alt=""
-          />
-          <figure className="mt-10">
-            <blockquote className="text-center text-xl font-semibold leading-8 text-gray-900 sm:text-2xl sm:leading-9">
-              <p>
-                “Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
-                expedita voluptas culpa sapiente alias molestiae. Numquam
-                corrupti in laborum sed rerum et corporis.”
+          <h2 className="text-4xl font-bold text-gray-600 mb-4 text-4xl tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-gray-900">
+            What People Are Saying
+          </h2>
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="border border-gray-300 rounded-lg p-6">
+              <p className="text-gray-700 mb-4">
+                `SoulShare has made a significant impact in my community. The
+                platform`s innovative approach to connecting people in need with
+                those who can help is truly inspiring. I`ve witnessed lives
+                being transformed through acts of kindness facilitated by
+                SoulShare`
               </p>
-            </blockquote>
-            <figcaption className="mt-10">
-            <img
-              className="mx-auto h-10 w-10 rounded-full"
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              alt=""
-            />
-            <div className="mt-4 flex items-center justify-center space-x-3 text-base">
-              <div className="font-semibold text-gray-900">Judith Black</div>
-              <svg
-                viewBox="0 0 2 2"
-                width={3}
-                height={3}
-                aria-hidden="true"
-                className="fill-gray-900"
-              >
-                <circle cx={1} cy={1} r={1} />
-              </svg>
-              <div className="text-gray-600">CEO of Workcation</div>
+              <div className="flex items-center space-x-3">
+                <img
+                  className="h-12 w-12 rounded-full"
+                  src="https://e0.pxfuel.com/wallpapers/378/1016/desktop-wallpaper-obito-uchiha-anime-naruto-shippuden-naruto.jpg"
+                />
+                <div>
+                  <p className="font-semibold text-gray-900">Tharun</p>
+                  {/* <p className="text-gray-600">Community Volunteer</p> */}
+                </div>
+              </div>
             </div>
-          </figcaption>
-          </figure>
+
+            <div className="border border-gray-300 rounded-lg p-6">
+              <p className="text-gray-700 mb-4">
+                "SoulShare's platform has given me the opportunity to make a
+                real difference in the lives of others. I've been able to donate
+                clothing and essentials to families in need, and the whole
+                process has been seamless and rewarding. Thank you, SoulShare!"
+              </p>
+              <div className="flex items-center space-x-3">
+                <img
+                  className="h-12 w-12 rounded-full"
+                  src="https://e0.pxfuel.com/wallpapers/34/167/desktop-wallpaper-cute-naruto-anime-naruto-little-naruto-uzumaki.jpg"
+                  alt="Testimonial Author"
+                />
+                <div>
+                  <p className="font-semibold text-gray-900">modal tharun</p>
+                  {/* <p className="text-gray-600">SoulShare Beneficiary</p> */}
+                </div>
+              </div>
+            </div>
+
+            <div className="border border-gray-300 rounded-lg p-6">
+              <p className="text-gray-700 mb-4">
+                "I've had the privilege of being a part of the SoulShare
+                community since its inception. The impact it has made on
+                bridging gaps and fostering connections is truly remarkable.
+                It's heartwarming to see people coming together to support one
+                another."
+              </p>
+              <div className="flex items-center space-x-3">
+                <img
+                  className="h-12 w-12 rounded-full"
+                  src="https://e0.pxfuel.com/wallpapers/527/113/desktop-wallpaper-naruto-no-modo-kurama-naruto-sasuke-sakura-naruto-sage-naruto-mobile-naruto-modo-kurama.jpg"
+                  alt="Testimonial Author"
+                />
+                <div>
+                  <p className="font-semibold text-gray-900">Tonda tharun</p>
+                  {/* <p className="text-gray-600">Social Activist</p> */}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </motion.div>
     </section>

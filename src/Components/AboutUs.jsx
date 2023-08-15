@@ -61,7 +61,7 @@ const AboutUs = () => {
             <div className="mx-auto grid max-w-[100%] gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 justify-between">
               <motion.div
                 ref={ref}
-                initial={{ x: "-100%" }}
+                initial={{ x: "100%" }}
                 animate={isInView ? { x: 0 } : { x: "100%" }}
                 transition={{ duration: 0.5, delay: 0.4, ease: "easeInOut" }}
                 className=" text-gray-500  rounded-lg  "
@@ -72,7 +72,7 @@ const AboutUs = () => {
                       words={["Crafting Dreams", "Building Futures"]}
                       loop={10000}
                       cursor
-                      cursorStyle="..."
+                      cursorStyle="_"
                       typeSpeed={90}
                       deleteSpeed={50}
                       delaySpeed={1000}
