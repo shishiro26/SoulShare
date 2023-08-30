@@ -4,7 +4,7 @@ import { Typewriter } from "react-simple-typewriter";
 
 const people = [
   {
-    name: "Shishiro Dheeravath",
+    name: "Shishiro",
     role: "Frontend Developer",
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSudU6gmyeog5RWlz8b2FUxARwyrD-GMo9txw&usqp=CAU",
@@ -31,7 +31,7 @@ const AboutUs = () => {
     if (isInView) {
       mainControls.start("visible");
     }
-  }, [isInView]);
+  }, [isInView, mainControls]);
   return (
     <div className="flex flex-row" id="about-link">
       <motion.div
@@ -44,7 +44,7 @@ const AboutUs = () => {
         animate={mainControls}
         transition={{ duration: 0.5, delay: 0.25 }}
       >
-        <div className="relative isolate px-6 pt-14 lg:px-8 w-[100%]">
+        <div className="relative isolate px-6 pt-14 lg:px-8 w-[100%]  ">
           <div
             className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
             aria-hidden="true"
@@ -61,9 +61,9 @@ const AboutUs = () => {
             <div className="mx-auto grid max-w-[100%] gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 justify-between">
               <motion.div
                 ref={ref}
-                initial={{ x: "100%" }}
-                animate={isInView ? { x: 0 } : { x: "100%" }}
-                transition={{ duration: 0.5, delay: 0.4, ease: "easeInOut" }}
+                initial={{ x: "-20%" }}
+                animate={isInView ? { x: 0 } : { x: "-20%" }}
+                transition={{ duration: 0.45, delay: 0.4, ease: "easeInOut" }}
                 className=" text-gray-500  rounded-lg  "
               >
                 <div className="max-w-[100%]">
@@ -102,14 +102,14 @@ const AboutUs = () => {
               </motion.div>
               <motion.div
                 ref={ref}
-                initial={{ x: "100%" }}
-                animate={isInView ? { x: 0 } : { x: "100%" }}
-                transition={{ duration: 0.5, delay: 0.4, ease: "easeInOut" }}
+                initial={{ x: "20%" }}
+                animate={isInView ? { x: 0 } : { x: "20%" }}
+                transition={{ duration: 0.45, delay: 0.4, ease: "easeInOut" }}
                 className=" text-gray-500 p-8 rounded-lg grid gap-x-8 gap-y-12 sm:grid-cols-1 sm:gap-y-16 xl:col-span-2"
               >
                 <ul
                   role="list"
-                  className="grid gap-x-8 gap-y-12 sm:grid-cols-1 sm:gap-y-16 xl:col-span-2"
+                  className="grid gap-x-8 gap-y-12 sm:grid-cols-1 md:grid-cols-2 sm:gap-y-16 xl:col-span-2"
                 >
                   {people.map((person) => (
                     <li key={person.name}>
