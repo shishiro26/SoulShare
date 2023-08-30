@@ -1,4 +1,3 @@
-import React from "react";
 import CardClothes from "../Components/CardClothes";
 import ImageSlider from "../Components/Carousals/ImageSlider";
 import Navbar from "../Components/Navbar";
@@ -26,7 +25,7 @@ const Browse = () => {
 
   const containerStyles = {
     width: "100%",
-    height: "300px",
+    height: "500px",
     margin: "0 auto",
   };
 
@@ -40,19 +39,24 @@ const Browse = () => {
     <div className="flex flex-row">
       <Navbar />
       <div>
-        <Location />
-        <div style={containerStyles}>
+        <div className="flex justify-center items-center">
+          <Location />
+        </div>
+        <div style={containerStyles} className="py-4">
           <ImageSlider slides={slides} />
         </div>
-        <div className="m-10 flex flex-col">
+        <div className="m-10 flex flex-col ">
           <Button />
-          <hr className="" />
+          <hr className="m-2 w-full" />
         </div>
         <div>
           <ul className="grid grid-cols-3 lg:grid-cols-3 sm:grid-cols-1">
             {cardClothesData.map((data, index) => (
               <li key={index} className="m-5">
-                <CardClothes userName={data.userName} distance={data.distance} />
+                <CardClothes
+                  userName={data.userName}
+                  distance={data.distance}
+                />
               </li>
             ))}
           </ul>
