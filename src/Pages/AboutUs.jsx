@@ -21,7 +21,6 @@ const people = [
     imageUrl:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
   },
-  // More people...
 ];
 const AboutUs = () => {
   const ref = useRef(null);
@@ -32,7 +31,7 @@ const AboutUs = () => {
     if (isInView) {
       mainControls.start("visible");
     }
-  }, [isInView]);
+  }, [isInView, mainControls]);
   return (
     <div className="flex flex-row">
       <motion.div
@@ -75,18 +74,18 @@ const AboutUs = () => {
                 <br />
                 <h2 className="text-3xl font-bold tracking-tight text-[white] sm:text-4xl ">
                   The{" "}
-                  <span class="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
+                  <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
                     Heart
                   </span>{" "}
                   and{" "}
-                  <span class="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
+                  <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
                     Soul
                   </span>{" "}
                   Behind Our Purpose
                 </h2>
                 <p className="mt-6 text-lg leading-8 text-gray-300">
                   Guided by a passion for positive change, we are more than a
-                  platform. We're a collective of dream weavers, weaving threads
+                  platform. Were a collective of dream weavers, weaving threads
                   of hope through every garment donated and every meal shared.
                   Our journey is an artful symphony of compassion, connecting
                   hearts to hands and giving voice to the silent needs of
@@ -134,10 +133,7 @@ const AboutUs = () => {
         </div>
       </motion.div>
     </div>
-    );
-}
- 
+  );
+};
+
 export default AboutUs;
-
-
-
