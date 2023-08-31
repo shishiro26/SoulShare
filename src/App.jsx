@@ -5,9 +5,17 @@ import { Route, Routes } from "react-router-dom";
 import Landing from "./Pages/LandingPage";
 import Browse from "./Pages/browse";
 import ChatBox from "./Components/chatBox";
+import { useEffect } from "react";
 // import AboutUs from "./Components/AboutUs";
 
 function App() {
+  useEffect(() => {
+    if (window.innerWidth < 770) {
+      alert(
+        `For better viewing experience use the devices width greater than 750px`
+      );
+    }
+  }, [window.innerWidth]);
   return (
     <div>
       <Routes>
