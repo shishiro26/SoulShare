@@ -8,14 +8,14 @@ function Location() {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [responseData, setResponseData] = useState({});
-  const [dialogVisible, setDialogVisible] = useState(false);
+  const [dialogVisible, setDialogVisible] = useState(true);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
+      console.log(position.coords.latitude, position.coords.longitude);
     });
-    console.log(latitude, longitude);
   }, []);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function Location() {
             setResponseData({ ...res.data });
           })
           .catch((err) => console.log(err.message));
-      }, 100);
+      }, 1000);
     }
   }, [latitude, longitude]);
 
@@ -47,10 +47,10 @@ function Location() {
         <>
           {latitude && longitude ? (
             <section className="w-[100%]">
-              <div className="py-3  mx-auto  max-w-screen-xl text-center z-10 relative">
+              <div className="pt-2 mx-auto  max-w-screen-xl text-center z-10 relative">
                 <NavLink
                   to="#"
-                  className="flex justify-between items-center  py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-blue-100 rounded-full dark:bg-[#51D6FF]"
+                  className="flex justify-between items-center  py-1 px-1 pr-4  text-sm text-gray-700 bg-blue-100 rounded-full dark:bg-[#51D6FF]"
                 >
                   <span className="block text-xs dark:bg-[#37FF8B] rounded-full text-gray-900 px-4 py-1.5 mr-3">
                     New Location
@@ -61,7 +61,7 @@ function Location() {
                     </span>
                     <button
                       type="button"
-                      className="ml-auto -mx-1.5 -my-1.5  rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-[#37FF8B] inline-flex items-center justify-center h-8 w-8 "
+                      className="ml-auto -mx-1.5 -my-1.5  rounded-lg  p-1.5 hover:bg-[#37FF8B] inline-flex items-center justify-center h-8 w-8 "
                       data-dismiss-target="#alert-1"
                       onClick={toggleDialog}
                       aria-label="Close"
