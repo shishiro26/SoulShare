@@ -26,7 +26,7 @@ const Browse = () => {
   const containerStyles = {
     width: "100%",
     height: "500px",
-    margin: "0 auto",
+    margin: "0",
   };
 
   const cardClothesData = [
@@ -36,18 +36,18 @@ const Browse = () => {
   ];
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row gap-3">
       <Navbar />
       <div>
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center p-0">
           <Location />
         </div>
-        <div style={containerStyles} className="py-4">
+        <div style={containerStyles} className="py-2 px-2">
           <ImageSlider slides={slides} />
         </div>
-        <div className="m-10 flex flex-col ">
+        <div className="m-4 flex flex-col ">
           <Button />
-          <hr className="m-2 w-full" />
+          <hr className="m-1 w-full" />
         </div>
         <div>
           <ul className="grid grid-cols-3 lg:grid-cols-3 sm:grid-cols-1">
