@@ -30,9 +30,14 @@ const Browse = () => {
   };
 
   const cardClothesData = [
-    { userName: "User123", distance: 120 },
-    { userName: "Fashionista", distance: 240 },
-    { userName: "Trendsetter", distance: 50 },
+    { userName: `User123`, distance: 120, roles: "food" },
+    { userName: "Fashionista", distance: 20, roles: "food" },
+    { userName: "Trendsetter", distance: 50, roles: "medicines" },
+    { userName: "Trendsetter", distance: 50, roles: "other" },
+    { userName: "tharun", distance: 50, roles: "food" },
+    { userName: "Trendsetter", distance: 50, roles: "other" },
+    { userName: "Trendsetter", distance: 50, roles: "other" },
+    { userName: "Trendsetter", distance: 50, roles: "other" },
   ];
 
   return (
@@ -50,12 +55,13 @@ const Browse = () => {
           <hr className="m-1 w-full" />
         </div>
         <div>
-          <ul className="grid grid-cols-3 lg:grid-cols-3 sm:grid-cols-1">
+          <ul className="grid grid-cols-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {cardClothesData.map((data, index) => (
               <li key={index} className="m-5">
                 <CardClothes
                   userName={data.userName}
                   distance={data.distance}
+                  role={data.roles}
                 />
               </li>
             ))}

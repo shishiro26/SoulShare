@@ -10,7 +10,7 @@ const Modal = ({ handleClose }) => {
       <section className="space-y-10">
         <motion.div
           onClick={(e) => e.stopPropagation()}
-          className="m-auto py-5 px-8 rounded-lg bg-[#51D6FF]"
+          className="w-full lg:max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow-xl dark:bg-gray-800"
           variants={dropIn}
           initial="hidden"
           animate="visible"
@@ -19,7 +19,7 @@ const Modal = ({ handleClose }) => {
           <h1 className="m-4 text-4xl font-bold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[white]">
             Wanna add a product!!
           </h1>
-          <form action="#" className="m-6 space-y-6">
+          <form action="#" className="m-6 space-y-6" autoComplete="off">
             <div>
               <label
                 htmlFor="pname"
@@ -32,6 +32,7 @@ const Modal = ({ handleClose }) => {
                 name="pname"
                 id="pname"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full sm:w-[100%]  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="ex:Biryani"
               />
             </div>
             <div>
@@ -47,7 +48,7 @@ const Modal = ({ handleClose }) => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full sm:w-[100%]  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
                 <option value="" selected>
-                  Select an option
+                  Select an the type of product
                 </option>
                 <option value="Food" className="text-blue">
                   🍴Food
@@ -77,13 +78,13 @@ const Modal = ({ handleClose }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleClose}
-              className="px-5 py-3 text-base font-semibold text-center text-white bg-[#51D6FF] rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-[#37FF8A] dark:hover:bg-[#37FF8B] dark:focus:ring-blue-800 transition duration-500 ease-in-out"
+              className=" px-5 py-3 text-base font-semibold text-center text-white bg-[#51D6FF] rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  dark:bg-[#51D6FF] dark:hover:bg-[#37FF8B] dark:focus:ring-blue-800 transition duration-500 ease-in-out "
             >
               Add Item
             </motion.button>
             <button
               onClick={handleClose}
-              className="px-5 py-3 text-base font-semibold text-center text-white bg-[#51D6FF] rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-[#37FF8B] dark:hover:bg-[#37FF8B] dark:focus:ring-blue-800 transition duration-500 ease-in-out"
+              className="px-5 py-3 text-base font-semibold text-center text-white bg-[#51D6FF] rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300  dark:bg-[#51D6FF] dark:hover:bg-[#37FF8B] dark:focus:ring-blue-800 transition duration-500 ease-in-out"
             >
               Close
             </button>
