@@ -6,12 +6,13 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import multer from "multer";
 import path from "path";
+import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
 import connectDB from "./config/db.js";
 import { register } from "./controllers/auth.js";
 import { logger } from "./middleware/logger.js";
 import { errorHandler } from "./middleware/errorHandler.js";
-
+import userRoutes from "./routes/userRoutes.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -21,6 +22,8 @@ dotenv.config();
 /*Connecting the database */
 connectDB();
 app.use(express.json());
+/*Cookie-parser */
+app.use(cookieParser());
 /* logs */
 app.use(logger);
 /*adds another 15 middleware and protects from common cross site threats*/
@@ -40,6 +43,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.post("/auth/register", upload.single("picture"), register);
+
+/* Routes */
+app.use("/api/auth", userRoutes);
 
 /* Error Handler */
 app.use(errorHandler);

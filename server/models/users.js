@@ -5,34 +5,35 @@ const userSchema = mongoose.Schema(
   {
     firstName: {
       type: String,
-      require: [true, "First name is required"],
+      required: [true, "First name is required"],
       min: 2,
       max: 50,
     },
     lastName: {
       type: String,
-      require: true,
+      required: true,
       min: 1,
       max: 30,
     },
     email: {
       type: String,
-      require: [true, "email is required"],
+      required: [true, "email is required"],
       unique: true,
       validate: [validator.isEmail, "please provide a valid email"],
       max: 50,
     },
     Number: {
       type: Number,
-      require: [true, "Number is required"],
+      required: [true, "Number is required"],
     },
     password: {
       type: String,
       min: 8,
-      require: [true, "Password is required"],
+      required: [true, "Password is required"],
     },
     location: String,
     image: String,
+    verified: { type: Boolean, required: true, default: false },
   },
   { timestamps: true }
 );
