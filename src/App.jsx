@@ -10,12 +10,8 @@ import { useEffect } from "react";
 
 function App() {
   useEffect(() => {
-    if (window.innerWidth < 770) {
-      alert(
-        `For better viewing experience use the devices width greater than 750px`
-      );
-    }
-  }, [window.innerWidth]);
+    alert(`Working in progress`);
+  }, []);
   return (
     <div>
       <Routes>
