@@ -32,8 +32,12 @@ const userSchema = mongoose.Schema(
       required: [true, "Password is required"],
     },
     location: String,
-    image: String,
-    verified: { type: Boolean, required: true, default: false },
+    image: {
+      data: Buffer,
+      contentType: String,
+    },
+    college: String,
+    isVerified: { type: Boolean, default: false, required: true },
   },
   { timestamps: true }
 );

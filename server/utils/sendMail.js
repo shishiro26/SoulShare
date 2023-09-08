@@ -16,10 +16,10 @@ export const sendMailer = async (email, otp, firstName, lastName) => {
 
     await transporter.sendMail(
       {
-        from: process.env.USER,
+        from: `'SoulShare ||  by SHISHIRO'`,
         to: email,
         subject: `Welcome to SoulShare - Registration OTP`,
-        text: `Hello ${firstName} ${lastName} ,\n\nYour OTP for registration with SoulShare is: ${otp}\n\nThank you for choosing SoulShare!-SHISHIRO`,
+        text: `Hello ${firstName} ${lastName} ,\n\nYour OTP for registration with SoulShare is: ${otp}\n\nThank you for choosing SoulShare!!`,
       },
       function (err, info) {
         if (err) console.log(err);

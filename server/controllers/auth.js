@@ -1,8 +1,9 @@
 import bcrypt from "bcrypt";
 import User from "../models/users.js";
 import generateToken from "../utils/generateToken.js";
-import otpgenerator from "otp-generator";
+import otpGenerator from "otp-generator";
 import { sendMailer } from "../utils/sendMail.js";
+import OTP from "../models/OTP.js";
 
 /* Register User */
 export const register = async (req, res) => {
@@ -35,12 +36,14 @@ export const register = async (req, res) => {
     const hashedPwd = await bcrypt.hash(password, salt);
 
     /* Generating an OTP */
-    const otp = await otpgenerator.generate(4, {
+    const otp = await otpGenerator.generate(6, {
       digits: true,
       specialChars: false,
       upperCaseAlphabets: false,
       lowerCaseAlphabets: false,
     });
+
+    await OTP.create({ email, otp });
 
     /* Creating the user */
     const user = await User.create({
@@ -51,9 +54,9 @@ export const register = async (req, res) => {
       password: hashedPwd,
       location,
       image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
-      otp,
+      isVerified: false,
     });
-   /* Sending an email to the user */
+    /* Sending an email to the user */
     sendMailer(email, otp, user.firstName, user.lastName);
 
     /* if the user is created than we are generating an token for the user */
@@ -61,7 +64,7 @@ export const register = async (req, res) => {
       generateToken(res, user._id);
       res
         .status(201)
-        .json({ message: `Newuser ${firstName} created , otp: ${otp}` });
+        .json({ message: `New User ${firstName} created , otp: ${otp}` });
     } else {
       res.status(400).json({ message: "Invalid user data received" });
     }
@@ -94,6 +97,51 @@ export const login = async (req, res) => {
   }
 };
 
+/* Resetting the password */
+export const updatePassword = async (req, res) => {
+  try {
+    //destructuring the id from the params
+    const { id } = req.params;
+    // destructuring the req.body
+
+    //getting the user Details
+    const userDetails = await User.findById(id);
+
+    if (userDetails.isVerified) {
+      
+      const { oldPassword, newPassword, confirmNewPassword } = req.body;
+
+      //validating the oldPassword
+      const isPasswordMatch = await bcrypt.compare(
+        oldPassword,
+        userDetails.password
+      );
+      //matching the new password
+      if (newPassword !== confirmNewPassword) {
+        return res.status(400).json({ message: `password do not match` });
+      }
+
+      if (!isPasswordMatch) {
+        return res.status(401).json({
+          message: "old Password do not match!!",
+        });
+      }
+
+      const salt = await bcrypt.genSalt();
+      const hashedPwd = await bcrypt.hash(newPassword, salt);
+
+      await User.findByIdAndUpdate(id, {
+        password: hashedPwd,
+      });
+      return res.status(201).json({ message: "Password Updated Successfully" });
+    } else {
+      res.status().json({ message: "User needs to be verified !!!" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: `${error.message}` });
+  }
+};
+
 /* Logout the user */
 export const logout = (req, res) => {
   res.cookie("jwt", "", {
@@ -101,4 +149,23 @@ export const logout = (req, res) => {
     expires: new Date(0),
   });
   res.status(200).json({ message: "user logged out successfully" });
+};
+
+/* Verify OTP */
+export const verifyOtp = async (req, res) => {
+  try {
+    const { otp, email } = req.body;
+
+    const verifyOTP = await OTP.findOne({ email, otp });
+    if (!verifyOTP) {
+      return res.status(401).json({ message: "Invalid OTP" });
+    }
+
+    const user = await User.findOneAndUpdate({ email }, { isVerified: true });
+    if (user) {
+      res.status(201).json({ message: `User verified successfully` });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
