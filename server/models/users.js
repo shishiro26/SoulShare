@@ -1,8 +1,9 @@
-import mongoose from "mongoose";
-import validator from "validator";
+import mongoose from "npm:mongoose@^7.5.0";
+import validator from "npm:validator@^13.11.0";
 
 const userSchema = mongoose.Schema(
   {
+    id: String,
     firstName: {
       type: String,
       required: [true, "First name is required"],
@@ -31,12 +32,13 @@ const userSchema = mongoose.Schema(
       min: 8,
       required: [true, "Password is required"],
     },
-    location: String,
-    image: {
-      data: Buffer,
-      contentType: String,
-    },
+    latitude: String,
+    longitude: String,
     college: String,
+    //storing the image in the base64 format,
+    image: {
+      data: String,
+    },
     isVerified: { type: Boolean, default: false, required: true },
   },
   { timestamps: true }

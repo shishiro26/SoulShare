@@ -55,21 +55,13 @@ const CardClothes = (props) => {
       id="Card"
       className="relative max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 md:md-w-sm"
     >
-      {userData.role === "food" ? (
-        <>
-          <div className="text-center border-2 border-zinc-500 rounded-lg">{`${time.hours}:${time.minutes}:${time.seconds}`}</div>
-        </>
-      ) : (
-        <></>
-      )}
-
       <div className="w-[100%] h-[300px] overflow-hidden object-cover">
         <img
           src={TestImage}
           alt="/////"
           width="500"
           height="600"
-          className="hover:rounded-lg hover:scale-105 ease-in-out duration-[350] transition-all rounded-lg"
+          className="hover:scale-105 hover:rounded-lg ease-in-out duration-[350] transition-all rounded-lg"
         />
         {userData?.role === "food" ? (
           <div id="Heart" className="absolute top-0 right-0 mr-0 mt-7">
@@ -144,7 +136,13 @@ const CardClothes = (props) => {
               {userData.userName}
             </a>
           </div>
-
+          {userData.role === "food" ? (
+            <>
+              <div className="text-center rounded-lg">{`${time.hours}:${time.minutes}:${time.seconds}`}</div>
+            </>
+          ) : (
+            <></>
+          )}
           <div id="Distance">
             <span
               id="Posted how many days ago"
