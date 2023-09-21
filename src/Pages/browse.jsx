@@ -1,7 +1,6 @@
 import CardClothes from "../Components/CardClothes";
 import ImageSlider from "../Components/Carousals/ImageSlider";
 import Navbar from "../Components/Navbar";
-import Location from "../Components/location";
 import Button from "../Components/modal/button";
 
 const Browse = () => {
@@ -44,9 +43,6 @@ const Browse = () => {
     <div className="flex flex-row gap-3">
       <Navbar />
       <div>
-        <div className="flex justify-center items-center p-0">
-          <Location />
-        </div>
         <div style={containerStyles} className="py-2 px-2">
           <ImageSlider slides={slides} />
         </div>

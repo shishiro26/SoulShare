@@ -1,11 +1,10 @@
-import bcrypt from "bcrypt";
+import * as bcrypt from "https://deno.land/x/bcrypt@v0.3.0/mod.ts";
 import User from "../models/users.js";
 import generateToken from "../utils/generateToken.js";
-import otpGenerator from "otp-generator";
+import otpGenerator from "npm:otp-generator@^4.0.1";
 import { sendMailer } from "../utils/sendMail.js";
 import OTP from "../models/OTP.js";
 
-/* Register User */
 export const register = async (req, res) => {
   try {
     //Destructuring the req.body
@@ -15,7 +14,8 @@ export const register = async (req, res) => {
       Number,
       email,
       password,
-      location,
+      latitude,
+      longitude,
       confirmPassword,
     } = req.body;
 
@@ -52,8 +52,9 @@ export const register = async (req, res) => {
       Number,
       email,
       password: hashedPwd,
-      location,
       image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
+      latitude,
+      longitude,
       isVerified: false,
     });
     /* Sending an email to the user */
@@ -62,14 +63,14 @@ export const register = async (req, res) => {
     /* if the user is created than we are generating an token for the user */
     if (user) {
       generateToken(res, user._id);
-      res
-        .status(201)
-        .json({ message: `New User ${firstName} created , otp: ${otp}` });
+      res.status(201).json({
+        message: `New User ${firstName} created , otp: ${otp}`,
+      });
     } else {
       res.status(400).json({ message: "Invalid user data received" });
     }
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: "this is the error", error: err });
   }
 };
 
@@ -107,8 +108,11 @@ export const updatePassword = async (req, res) => {
     //getting the user Details
     const userDetails = await User.findById(id);
 
+    if (!userDetails) {
+      return res.status(404).json({ message: "User doesn't exist" });
+    }
+
     if (userDetails.isVerified) {
-      
       const { oldPassword, newPassword, confirmNewPassword } = req.body;
 
       //validating the oldPassword
@@ -135,10 +139,37 @@ export const updatePassword = async (req, res) => {
       });
       return res.status(201).json({ message: "Password Updated Successfully" });
     } else {
-      res.status().json({ message: "User needs to be verified !!!" });
+      res.status(401).json({ message: "User needs to be verified !!!" });
     }
   } catch (error) {
     res.status(500).json({ message: `${error.message}` });
+  }
+};
+
+/*Updating the image*/
+export const updateImage = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userDetails = await User.findById(id);
+
+    if (!userDetails) {
+      return res.status(404).json({ message: "User doesn't exist" });
+    }
+
+    if (userDetails.isVerified) {
+      const { image } = req.body;
+      const base64Image = req?.file?.buffer.toString("base64");
+
+      await User.findByIdAndUpdate(id, {
+        image: base64Image,
+      });
+
+      return res.status(200).json({ message: "Image updated successfully" });
+    } else {
+      return res.status(401).json({ error: "Verify your email" });
+    }
+  } catch (err) {
+    return res.status(500).json({ message: `${err.message}` });
   }
 };
 
@@ -167,5 +198,27 @@ export const verifyOtp = async (req, res) => {
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+/* Get the user Info */
+export const userInfo = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User doesn't exist" });
+    }
+    if (user.isVerified) {
+      if (!user) {
+        return res.status(403).send("Not authorized");
+      } else {
+        return res.status(200).json({ data: user });
+      }
+    } else {
+      return res.status(401).json("Verify your email");
+    }
+  } catch (error) {
+    console.log(`Error in getting info ${error.message}`);
   }
 };

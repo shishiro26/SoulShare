@@ -12,21 +12,21 @@ import { useEffect, useRef } from "react";
 // import Button from "../Components/modal/button.jsx";
 
 const LandingPage = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-  const mainControls = useAnimation();
+  // const ref = useRef(null);
+  // const isInView = useInView(ref, { once: true });
+  // const mainControls = useAnimation();
 
-  useEffect(() => {
-    if (isInView) {
-      mainControls.start("visible");
-    }
-  }, [isInView, mainControls]);
+  // useEffect(() => {
+  //   if (isInView) {
+  //     mainControls.start("visible");
+  //   }
+  // }, [isInView, mainControls]);
 
   return (
     <>
       <div className="flex flex-row">
         <Navbar />
-        <motion.div
+        {/* <div
           ref={ref}
           variants={{
             hidden: { opacity: 0, y: 100 },
@@ -34,13 +34,14 @@ const LandingPage = () => {
           }}
           initial="hidden"
           animate={mainControls}
-          transition={{ duration: 0.5, delay: 0.25, ease: "easeInOut" }}
-        >
+          transition={{ duration: 0.5, delay: 0.25, ease: "easeInOut" }} 
+        >*/}
+        <div>
           <Hero />
           <Feature />
           <AboutUs />
           <Testimonials />
-        </motion.div>
+        </div>
         {/* <Button/> */}
       </div>
     </>
