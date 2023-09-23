@@ -1,10 +1,11 @@
-import * as bcrypt from "https://deno.land/x/bcrypt@v0.3.0/mod.ts";
-import User from "../models/users.js";
+import bcrypt from "bcrypt";
+import User from "../models/Users.js";
 import generateToken from "../utils/generateToken.js";
-import otpGenerator from "npm:otp-generator@^4.0.1";
+import otpGenerator from "otp-generator";
 import { sendMailer } from "../utils/sendMail.js";
 import OTP from "../models/OTP.js";
 
+/* Registering the user */
 export const register = async (req, res) => {
   try {
     //Destructuring the req.body
@@ -58,7 +59,7 @@ export const register = async (req, res) => {
       isVerified: false,
     });
     /* Sending an email to the user */
-    sendMailer(email, otp, user.firstName, user.lastName);
+    sendMailer(email, otp, user.firstName, user.lastName, "registration");
 
     /* if the user is created than we are generating an token for the user */
     if (user) {
@@ -182,25 +183,6 @@ export const logout = (req, res) => {
   res.status(200).json({ message: "user logged out successfully" });
 };
 
-/* Verify OTP */
-export const verifyOtp = async (req, res) => {
-  try {
-    const { otp, email } = req.body;
-
-    const verifyOTP = await OTP.findOne({ email, otp });
-    if (!verifyOTP) {
-      return res.status(401).json({ message: "Invalid OTP" });
-    }
-
-    const user = await User.findOneAndUpdate({ email }, { isVerified: true });
-    if (user) {
-      res.status(201).json({ message: `User verified successfully` });
-    }
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
 /* Get the user Info */
 export const userInfo = async (req, res) => {
   try {
@@ -219,6 +201,46 @@ export const userInfo = async (req, res) => {
       return res.status(401).json("Verify your email");
     }
   } catch (error) {
-    console.log(`Error in getting info ${error.message}`);
+    res.status(500).json(`Error in getting info ${error.message}`);
+  }
+};
+
+/* Delete the user with the delayed deletion  */
+export const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { email } = req.body;
+    const userDetails = await User.findOne({ _id: id })
+      .select("-password")
+      .exec();
+
+    if (!userDetails) {
+      return res.status(409).json("No such user found");
+    }
+
+    if (userDetails.isVerified) {
+      const { otp } = req.body;
+      const foundOTP = await OTP.findOne({ email, otp }).exec();
+
+      if (foundOTP) {
+        await User.findOneAndUpdate({ _id: id }, { markedForDeletion: true });
+
+        sendMailer(
+          email,
+          otp,
+          userDetails.firstName,
+          userDetails.lastName,
+          "accountDeleted"
+        );
+
+        return res.status(200).json("User Deleted Successfully");
+      } else {
+        return res.status(400).json("OTP doesn't match");
+      }
+    } else {
+      return res.status(401).json("Verify Your Email");
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };

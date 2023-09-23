@@ -1,5 +1,5 @@
-import mongoose from "npm:mongoose@^7.5.0";
-import validator from "npm:validator@^13.11.0";
+import mongoose from "mongoose";
+import validator from "validator";
 
 const userSchema = mongoose.Schema(
   {
@@ -40,8 +40,25 @@ const userSchema = mongoose.Schema(
       data: String,
     },
     isVerified: { type: Boolean, default: false, required: true },
+    markedForDeletion: { type: Boolean, default: false, required: true },
+    expiresIn: {
+      type: Date,
+    },
   },
   { timestamps: true }
 );
+
+userSchema.pre("save", function (next) {
+  console.log(this.markedForDeletion);
+  console.log("😵", this.expiresIn);
+  if (this.markedForDeletion && !this.expiresIn) {
+    const oneMinuteFromNow = new Date();
+    oneMinuteFromNow.setMinutes(oneMinuteFromNow.getMinutes() + 1);
+    this.deletionTimer = oneMinuteFromNow;
+    console.log(oneMinuteFromNow);
+  }
+  next();
+});
+
 const User = mongoose.model("User", userSchema);
 export default User;

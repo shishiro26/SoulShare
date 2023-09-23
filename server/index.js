@@ -1,23 +1,22 @@
-import express from "npm:express@^4.18";
-import helmet from "npm:helmet@^7.0.0";
-import cors from "npm:cors@^2.8.5";
-import morgan from "npm:morgan@^1.10";
-import { load } from "https://deno.land/std/dotenv/mod.ts";
-import cookieParser from "npm:cookie-parser@^1.4.6";
-import connectDB from "./config/db.js";
+import express from "express";
+import helmet from "helmet";
+import cors from "cors";
+import morgan from "morgan";
+import dotenv from "dotenv";
+dotenv.config();
+import cookieParser from "cookie-parser";
+import connectDB from "./config/Config.js";
 import { logger } from "./middleware/logger.js";
 import { errorHandler } from "./middleware/errorHandler.js";
-import userRoutes from "./routes/userRoutes.js";
+import userRoutes from "./routes/UserRoutes.js";
+import otpRoutes from "./routes/OtpRoutes.js";
 // import productRoutes from "./routes/productRoutes.js";
-import multer from "npm:multer@^1.4.5-lts.1";
+import multer from "multer";
 // import { createProduct } from "./controllers/product.js";
-import * as path from "https://deno.land/std/path/mod.ts";
-import { updateImage } from "./controllers/auth.js";
+import { updateImage } from "./controllers/Auth.js";
 /*Creating an Express Instance*/
 const app = express();
-const env = await load();
-/*Connecting the database */
-connectDB();
+
 app.use(express.json());
 /*Cookie-parser */
 app.use(cookieParser());
@@ -45,12 +44,9 @@ function multerErrorHandler(err, req, res, next) {
   }
 }
 /* Routes */
-app.post(
-  "/api/auth/updateImage/:id",
-  upload.single("image"),
-  updateImage
-);
+app.post("/api/auth/updateImage/:id", upload.single("image"), updateImage);
 app.use("/api/auth", userRoutes);
+app.use("/api/auth/otp", otpRoutes);
 app.use(multerErrorHandler);
 
 // app.use("/api/product", productRoutes);
@@ -58,7 +54,8 @@ app.use(multerErrorHandler);
 // app.post("/api/createProduct", upload.single("image"), createProduct);
 /* Error Handler */
 app.use(errorHandler);
-// const port = process.env.PORT || 5050;
-const port = env["PORT"] || 5050;
+const port = process.env.PORT || 5050;
 //running the server
-app.listen(port, () => console.log(`Server port :${port}`));
+app.listen(port, () => console.log(`🚀 server at http://localhost:${port}.`));
+/*Connecting the database */
+connectDB();
