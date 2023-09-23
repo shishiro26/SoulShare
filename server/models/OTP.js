@@ -1,4 +1,4 @@
-import mongoose from "npm:mongoose@^7.5.0";
+import mongoose from "mongoose";
 
 const OTPSchema = new mongoose.Schema(
   {

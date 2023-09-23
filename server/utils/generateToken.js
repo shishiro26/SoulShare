@@ -1,15 +1,11 @@
-import jwt from "npm:jsonwebtoken@^9.0.2";
-import { load } from "https://deno.land/std/dotenv/mod.ts";
-
-const env = await load();
+import jwt from "jsonwebtoken";
 
 const generateToken = (res, userId) => {
   const token = jwt.sign(
     {
       userId,
     },
-    // process.env.SECRET_KEY,
-    env["SECRET_KEY"],
+    process.env.SECRET_KEY,
     {
       expiresIn: "7d",
     }

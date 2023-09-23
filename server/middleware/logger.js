@@ -1,11 +1,11 @@
 //os is a node module to provide information about the computer operating system
 //fs is a node module to access the file
 
-import { format } from "npm:date-fns@^2.30.0";
-import path from "node:path";
-import fs from "node:fs";
+import { format } from "date-fns";
+import path from "path";
+import fs from "fs";
 const fsPromises = fs.promises;
-import { fileURLToPath } from "node:url";
+import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
