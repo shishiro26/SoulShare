@@ -2,7 +2,7 @@ import CardClothes from "../Components/CardClothes";
 import ImageSlider from "../Components/Carousals/ImageSlider";
 import Navbar from "../Components/Navbar";
 import Button from "../Components/modal/button";
-
+import Location from "../Components/location";
 const Browse = () => {
   const slides = [
     {
@@ -42,6 +42,7 @@ const Browse = () => {
   return (
     <div className="flex flex-row gap-3">
       <Navbar />
+      <Location />
       <div>
         <div style={containerStyles} className="py-2 px-2">
           <ImageSlider slides={slides} />

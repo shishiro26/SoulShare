@@ -41,7 +41,7 @@ export const sendDeleteOtp = async (req, res) => {
       });
 
       await OTP.create({ otp, email });
-      sendMailer(email, otp, user.firstName, user.lastName, "deleteAccount");
+      sendMailer(email, otp, user.UserName, "deleteAccount");
       return res.status(200).json({ message: "OTP sent successfully", otp });
     } else {
       res.status(404).json({ message: "Email not found" });

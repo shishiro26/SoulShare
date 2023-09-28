@@ -5,6 +5,8 @@ import axios from "axios";
 const API_endpoint = `https://api.openweathermap.org/data/2.5/weather?`;
 
 function Location() {
+  const country = responseData.sys?.country || "";
+  const areaName = responseData.name || "";
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [responseData, setResponseData] = useState({});
@@ -14,6 +16,7 @@ function Location() {
     navigator.geolocation.getCurrentPosition((position) => {
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
+      console.log("Fetching the data...")
       console.log(position.coords.latitude, position.coords.longitude);
     });
   }, []);
@@ -23,8 +26,7 @@ function Location() {
       setTimeout(() => {
         axios
           .get(
-            `${API_endpoint}lat=${latitude}&lon=${longitude}&exclude=hourly,daily&appid=${
-              import.meta.env.VITE_API_KEY
+            `${API_endpoint}lat=${latitude}&lon=${longitude}&exclude=hourly,daily&appid=${import.meta.env.VITE_API_KEY
             }`
           )
           .then((res) => {
@@ -35,8 +37,7 @@ function Location() {
     }
   }, [latitude, longitude]);
 
-  const country = responseData.sys?.country || "";
-  const areaName = responseData.name || "";
+
 
   const toggleDialog = () => {
     setDialogVisible(!dialogVisible);

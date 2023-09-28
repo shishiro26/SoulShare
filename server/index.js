@@ -10,9 +10,9 @@ import { logger } from "./middleware/logger.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import userRoutes from "./routes/UserRoutes.js";
 import otpRoutes from "./routes/OtpRoutes.js";
-// import productRoutes from "./routes/productRoutes.js";
+import productRoutes from './routes/ProductRoutes.js'
 import multer from "multer";
-// import { createProduct } from "./controllers/product.js";
+import { createProduct } from './controllers/Product.js'
 import { updateImage } from "./controllers/Auth.js";
 /*Creating an Express Instance*/
 const app = express();
@@ -29,6 +29,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("tiny")); //logs the requests with some information
 app.use(express.urlencoded({ extended: true })); // Handle form data
 app.use(cors());
+app.use(express.static('public'));
 
 /* Setting up the multer storage and the multer to upload the images */
 const storage = multer.memoryStorage();
@@ -45,11 +46,12 @@ function multerErrorHandler(err, req, res, next) {
 }
 /* Routes */
 app.post("/api/auth/updateImage/:id", upload.single("image"), updateImage);
+app.post('/api/auth/product/:id', upload.single('productImage'), createProduct)
 app.use("/api/auth", userRoutes);
 app.use("/api/auth/otp", otpRoutes);
+app.use('/api/product/', productRoutes)
 app.use(multerErrorHandler);
 
-// app.use("/api/product", productRoutes);
 
 // app.post("/api/createProduct", upload.single("image"), createProduct);
 /* Error Handler */

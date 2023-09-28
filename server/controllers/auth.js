@@ -3,15 +3,16 @@ import User from "../models/Users.js";
 import generateToken from "../utils/generateToken.js";
 import otpGenerator from "otp-generator";
 import { sendMailer } from "../utils/sendMail.js";
+import Email from "../models/Email.js";
 import OTP from "../models/OTP.js";
+let timer;
 
 /* Registering the user */
 export const register = async (req, res) => {
   try {
     //Destructuring the req.body
     const {
-      firstName,
-      lastName,
+      UserName,
       Number,
       email,
       password,
@@ -48,24 +49,23 @@ export const register = async (req, res) => {
 
     /* Creating the user */
     const user = await User.create({
-      firstName,
-      lastName,
+      UserName,
       Number,
       email,
       password: hashedPwd,
-      image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
+      image: `https://api.dicebear.com/5.x/initials/svg?seed=${UserName}`,
       latitude,
       longitude,
       isVerified: false,
     });
     /* Sending an email to the user */
-    sendMailer(email, otp, user.firstName, user.lastName, "registration");
+    sendMailer(email, otp, user.UserName, "registration");
 
     /* if the user is created than we are generating an token for the user */
     if (user) {
       generateToken(res, user._id);
       res.status(201).json({
-        message: `New User ${firstName} created , otp: ${otp}`,
+        message: `New User ${UserName} created , otp: ${otp}`,
       });
     } else {
       res.status(400).json({ message: "Invalid user data received" });
@@ -228,11 +228,27 @@ export const deleteUser = async (req, res) => {
         sendMailer(
           email,
           otp,
-          userDetails.firstName,
-          userDetails.lastName,
+          userDetails.UserName,
           "accountDeleted"
         );
-
+        if (userDetails.markedForDeletion === true) {
+          timer = setTimeout(async () => {
+            try {
+              await User.deleteOne({ _id: id });
+              const likedEmail = await Email.deleteOne({ email: userDetails.email })
+              if (!likedEmail) {
+                console.log(`${userDetails.email} do not exist!! `)
+              }
+              res.cookie("jwt", "", {
+                httpOnly: true,
+                expires: new Date(0),
+              });
+              console.log("User and email is deleted and loggedout successfully")
+            } catch (err) {
+              console.log(`Error in the setTimeout${err.message}`)
+            }
+          }, 1000 * 60)
+        }
         return res.status(200).json("User Deleted Successfully");
       } else {
         return res.status(400).json("OTP doesn't match");
