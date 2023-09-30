@@ -4,6 +4,7 @@ import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
 dotenv.config();
+import createError from 'http-errors'
 import cookieParser from "cookie-parser";
 import connectDB from "./config/Config.js";
 import { logger } from "./middleware/logger.js";
@@ -14,8 +15,10 @@ import productRoutes from './routes/ProductRoutes.js'
 import multer from "multer";
 import { createProduct } from './controllers/Product.js'
 import { updateImage } from "./controllers/Auth.js";
+import { createServer } from 'http'
 /*Creating an Express Instance*/
 const app = express();
+const server = createServer(app)
 
 app.use(express.json());
 /*Cookie-parser */
@@ -26,10 +29,15 @@ app.use(logger);
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 /*adds another 15 middleware and protects from common cross site threats*/
 // app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-app.use(morgan("tiny")); //logs the requests with some information
+app.use(morgan("dev")); //logs the requests with some information
 app.use(express.urlencoded({ extended: true })); // Handle form data
 app.use(cors());
 app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+});
+
 
 /* Setting up the multer storage and the multer to upload the images */
 const storage = multer.memoryStorage();
@@ -44,6 +52,15 @@ function multerErrorHandler(err, req, res, next) {
     next(err);
   }
 }
+app.use(async (err, req, res, next) => {
+  res.status(err.status || 500);
+  res.send({
+    error: {
+      status: err.status || 500,
+      message: err.message
+    }
+  })
+})
 /* Routes */
 app.post("/api/auth/updateImage/:id", upload.single("image"), updateImage);
 app.post('/api/auth/product/:id', upload.single('productImage'), createProduct)
@@ -58,6 +75,6 @@ app.use(multerErrorHandler);
 app.use(errorHandler);
 const port = process.env.PORT || 5050;
 //running the server
-app.listen(port, () => console.log(`🚀 server at http://localhost:${port}.`));
+server.listen(port, () => console.log(`🚀 server at http://localhost:${port}.`));
 /*Connecting the database */
 connectDB();

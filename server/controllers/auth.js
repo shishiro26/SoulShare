@@ -1,11 +1,10 @@
 import bcrypt from "bcrypt";
 import User from "../models/Users.js";
-import generateToken from "../utils/generateToken.js";
 import otpGenerator from "otp-generator";
 import { sendMailer } from "../utils/sendMail.js";
 import Email from "../models/Email.js";
 import OTP from "../models/OTP.js";
-let timer;
+import { AccessToken, RefreshToken, verifyRefreshToken } from "../utils/generateToken.js";
 
 /* Registering the user */
 export const register = async (req, res) => {
@@ -58,15 +57,36 @@ export const register = async (req, res) => {
       longitude,
       isVerified: false,
     });
-    /* Sending an email to the user */
-    sendMailer(email, otp, user.UserName, "registration");
+
+    const savedUser = await user.save()
 
     /* if the user is created than we are generating an token for the user */
-    if (user) {
-      generateToken(res, user._id);
+    if (savedUser) {
+      /* Sending an email to the user */
+      sendMailer(email, otp, savedUser.UserName, "registration");
+      const acccessToken = await AccessToken(savedUser._id)
+      const refreshToken = await RefreshToken(savedUser._id)
+      res.cookie('AccessToken', acccessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 20 * 60 * 1000,
+      })
+      res.cookie('RefreshToken', refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 30 * 24 * 60 * 60 * 1000
+      })
+
       res.status(201).json({
-        message: `New User ${UserName} created , otp: ${otp}`,
+        message: `New User ${UserName} created \n,
+                  otp: ${otp} \n, 
+                  accessToken:${acccessToken} \n,
+                  refreshToken: ${refreshToken}\n`
+
       });
+
     } else {
       res.status(400).json({ message: "Invalid user data received" });
     }
@@ -82,14 +102,35 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
     //find the user with the email in the mongoDB
     const user = await User.findOne({ email });
+    if (user.markedForDeletion === true) {
+
+    }
+
+
+
+
     // comparing the user password and the password in the mongoDB
     if (user && (await bcrypt.compare(password, user.password))) {
-      generateToken(res, user._id);
+      const accessToken = await AccessToken(user._id)
+      const refreshToken = await RefreshToken(user._id)
+
+      res.cookie('AccessToken', accessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict',
+        maxAge: 20 * 60 * 1000,
+      });
+      res.cookie('RefreshToken', refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 30 * 24 * 60 * 60 * 1000
+
+      })
 
       res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
+        acccessToken: accessToken,
+        refreshToken: refreshToken
       });
     } else {
       res.status(401).json({ message: "Invalid Credentials" });
@@ -150,8 +191,10 @@ export const updatePassword = async (req, res) => {
 /*Updating the image*/
 export const updateImage = async (req, res) => {
   try {
+
     const { id } = req.params;
     const userDetails = await User.findById(id);
+    // if(req.payload.aud===id)
 
     if (!userDetails) {
       return res.status(404).json({ message: "User doesn't exist" });
@@ -176,7 +219,11 @@ export const updateImage = async (req, res) => {
 
 /* Logout the user */
 export const logout = (req, res) => {
-  res.cookie("jwt", "", {
+  res.cookie("AccessToken", "", {
+    httpOnly: true,
+    expires: new Date(0),
+  });
+  res.cookie("RefreshToken", "", {
     httpOnly: true,
     expires: new Date(0),
   });
@@ -187,18 +234,22 @@ export const logout = (req, res) => {
 export const userInfo = async (req, res) => {
   try {
     const { id } = req.params;
-    const user = await User.findById(id);
-    if (!user) {
-      return res.status(404).json({ message: "User doesn't exist" });
-    }
-    if (user.isVerified) {
+    if (req.payload.aud === id) {
+      const user = await User.findById(id);
       if (!user) {
-        return res.status(403).send("Not authorized");
+        return res.status(404).json({ message: "User doesn't exist" });
+      }
+      if (user.isVerified) {
+        if (!user) {
+          return res.status(403).send("Not authorized");
+        } else {
+          return res.status(200).json({ data: user });
+        }
       } else {
-        return res.status(200).json({ data: user });
+        return res.status(401).json("Verify your email");
       }
     } else {
-      return res.status(401).json("Verify your email");
+      res.status().json(`The id doesn't match with issued accesstoken`)
     }
   } catch (error) {
     res.status(500).json(`Error in getting info ${error.message}`);
@@ -239,15 +290,20 @@ export const deleteUser = async (req, res) => {
               if (!likedEmail) {
                 console.log(`${userDetails.email} do not exist!! `)
               }
-              res.cookie("jwt", "", {
+              res.cookie("AccessToken", "", {
                 httpOnly: true,
                 expires: new Date(0),
               });
+              res.cookie("RefreshToken", "", {
+                httpOnly: true,
+                expires: new Date(0),
+              });
+              res.status(200).json({ message: "user logged out successfully" });
               console.log("User and email is deleted and loggedout successfully")
             } catch (err) {
               console.log(`Error in the setTimeout${err.message}`)
             }
-          }, 1000 * 60)
+          }, 1000 * 60 * 60)
         }
         return res.status(200).json("User Deleted Successfully");
       } else {
@@ -260,3 +316,42 @@ export const deleteUser = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+
+export const refreshroute = async (req, res) => {
+  try {
+    const refreshToken = req.cookies.RefreshToken;
+    console.table(req.cookies.RefreshToken)
+    if (!refreshToken) {
+      return res.status(401).json({ error: 'Refresh token missing' });
+    }
+    const userId = await verifyRefreshToken(refreshToken);
+    const accessToken = await AccessToken(userId);
+    const refToken = await RefreshToken(userId);
+
+    res.cookie('AccessToken', accessToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+      maxAge: 20 * 60 * 1000,
+    });
+    res.cookie('RefreshToken', refToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      maxAge: 30 * 24 * 60 * 60 * 1000
+
+    })
+
+    res.json({ AccessToken: accessToken, refreshToken: refToken });
+  } catch (error) {
+    if (error.name === 'JsonWebTokenError') {
+      return res.status(401).json({ error: 'Invalid refresh token' });
+    } else if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({ error: 'Refresh token expired' });
+    } else {
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+};
+
