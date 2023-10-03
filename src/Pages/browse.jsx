@@ -1,8 +1,9 @@
 import CardClothes from "../Components/CardClothes";
-import ImageSlider from "../Components/Carousals/ImageSlider";
+import ImageSlider from "../Components/ImageSlider";
 import Navbar from "../Components/Navbar";
 import Button from "../Components/modal/button";
 import Location from "../Components/location";
+import Categories from "../Components/categories";
 const Browse = () => {
   const slides = [
     {
@@ -29,14 +30,14 @@ const Browse = () => {
   };
 
   const cardClothesData = [
-    { userName: `User123`, distance: 120, roles: "food" },
-    { userName: "Fashionista", distance: 20, roles: "food" },
-    { userName: "Trendsetter", distance: 50, roles: "medicines" },
-    { userName: "Trendsetter", distance: 50, roles: "other" },
-    { userName: "tharun", distance: 50, roles: "food" },
-    { userName: "Trendsetter", distance: 50, roles: "other" },
-    { userName: "Trendsetter", distance: 50, roles: "other" },
-    { userName: "Trendsetter", distance: 50, roles: "other" },
+    { productName: 'Biryani', userName: `Bala`, distance: 120, roles: "food" },
+    { productName: 'POLO', userName: "Saketh", distance: 20, roles: "clothes" },
+    { productName: 'Citrazen', userName: "DOLO", distance: 50, roles: "medicine" },
+    { productName: 'Phone', userName: "Akhil", distance: 50, roles: "other" },
+    { productName: 'Mutton', userName: "tharun", distance: 50, roles: "food" },
+    { productName: 'Denim', userName: "Bala", distance: 50, roles: "clothes" },
+    { productName: 'Dolo', userName: "Sheshu", distance: 50, roles: "medicine" },
+    { productName: 'Biryani', userName: "Trendsetter", distance: 50, roles: "food" },
   ];
 
   return (
@@ -48,7 +49,11 @@ const Browse = () => {
           <ImageSlider slides={slides} />
         </div>
         <div className="m-4 flex flex-col ">
-          <Button />
+          <div className="flex items-center justify-between sm:flex-row">
+            <Button />
+            <Categories />
+          </div>
+
           <hr className="m-1 w-full" />
         </div>
         <div>
@@ -56,6 +61,7 @@ const Browse = () => {
             {cardClothesData.map((data, index) => (
               <li key={index} className="m-5">
                 <CardClothes
+                  productName={data.productName}
                   userName={data.userName}
                   distance={data.distance}
                   role={data.roles}

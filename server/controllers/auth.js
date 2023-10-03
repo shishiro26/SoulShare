@@ -5,12 +5,13 @@ import { sendMailer } from "../utils/sendMail.js";
 import Email from "../models/Email.js";
 import OTP from "../models/OTP.js";
 import { AccessToken, RefreshToken, verifyRefreshToken } from "../utils/generateToken.js";
-
 /* Registering the user */
 export const register = async (req, res) => {
   try {
     //Destructuring the req.body
     const {
+      firstName,
+      lastName,
       UserName,
       Number,
       email,
@@ -49,6 +50,8 @@ export const register = async (req, res) => {
     /* Creating the user */
     const user = await User.create({
       UserName,
+      firstName,
+      lastName,
       Number,
       email,
       password: hashedPwd,
@@ -102,13 +105,6 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
     //find the user with the email in the mongoDB
     const user = await User.findOne({ email });
-    if (user.markedForDeletion === true) {
-
-    }
-
-
-
-
     // comparing the user password and the password in the mongoDB
     if (user && (await bcrypt.compare(password, user.password))) {
       const accessToken = await AccessToken(user._id)
@@ -283,7 +279,7 @@ export const deleteUser = async (req, res) => {
           "accountDeleted"
         );
         if (userDetails.markedForDeletion === true) {
-          timer = setTimeout(async () => {
+          setTimeout(async () => {
             try {
               await User.deleteOne({ _id: id });
               const likedEmail = await Email.deleteOne({ email: userDetails.email })

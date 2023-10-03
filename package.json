@@ -14,7 +14,7 @@
     "@headlessui/react": "^1.7.16",
     "@heroicons/react": "^2.0.18",
     "@studio-freight/lenis": "^1.0.19",
-    "axios": "^1.5.0",
+    "axios": "^1.5.1",
     "flowbite": "^1.8.1",
     "framer-motion": "^10.15.1",
     "gsap": "^3.12.2",

@@ -10,18 +10,18 @@ const Login = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const [data, setData] = useState({
+  const [isChecked, setIsChecked] = useState(false)
+  const [formData, setFormData] = useState({
     email: "",
-    password: "",
-  });
+    password: ""
+  })
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-  };
+
+
 
   return (
     <>
-      <div className="flex flex-row">
+      <div className="flex flex-row bg-gray-900">
         <Navbar />
         <section>
           <div className="bg-gray-50 dark:bg-gray-900 bg-gray-800">
@@ -76,7 +76,6 @@ const Login = () => {
                 </div>
                 <form
                   action="#"
-                  onSubmit={handleFormSubmit}
                   className="mt-8 space-y-6 "
                 >
                   <div>
@@ -90,10 +89,6 @@ const Login = () => {
                       type="email"
                       name="email"
                       id="email"
-                      value={data.email}
-                      onChange={(e) => {
-                        setData({ ...data, email: e.target.value });
-                      }}
                       placeholder="example@gmail.com"
                       autoComplete="off"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -112,10 +107,6 @@ const Login = () => {
                         type={showPassword ? "text" : "password"}
                         name="password"
                         id="password"
-                        value={data.password}
-                        onChange={(e) => {
-                          setData({ ...data, password: e.target.value });
-                        }}
                         placeholder="••••••••"
                         autoComplete="off"
                         className="bg-gray-50 border border-gray-300 border-r-0 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-r-none"

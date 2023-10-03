@@ -18,7 +18,6 @@ import { updateImage } from "./controllers/Auth.js";
 import { createServer } from 'http'
 /*Creating an Express Instance*/
 const app = express();
-const server = createServer(app)
 
 app.use(express.json());
 /*Cookie-parser */
@@ -75,6 +74,6 @@ app.use(multerErrorHandler);
 app.use(errorHandler);
 const port = process.env.PORT || 5050;
 //running the server
-server.listen(port, () => console.log(`🚀 server at http://localhost:${port}.`));
+app.listen(port, () => console.log(`🚀 server at http://localhost:${port}.`));
 /*Connecting the database */
 connectDB();
