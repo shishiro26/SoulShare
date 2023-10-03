@@ -1,5 +1,9 @@
 import TestImage from "../assets/pexels-rajesh-tp-1624487.jpg";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
 const CardClothes = (props) => {
   const [heartColor, setHeartColor] = useState("none");
   const [userData, setUserData] = useState([]);
@@ -116,9 +120,44 @@ const CardClothes = (props) => {
         )}
       </div>
       <div id="Details">
-        <div className="flex justify-between mx-4 my-1   ">
-          <div id="Profile">
-            <a href="LinkToProfile">
+        <div className="flex justify-between mx-2 my-1">
+          <div>
+            <NavLink to="/card" className="inline-flex items-center">
+              {
+                userData.role === 'food' ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="text-white" height="24" viewBox="0 -960 960 960" width="24">
+                    <path d="M280-80v-366q-51-14-85.5-56T160-600v-280h80v280h40v-280h80v280h40v-280h80v280q0 56-34.5 98T360-446v366h-80Zm400 0v-320H560v-280q0-83 58.5-141.5T760-880v800h-80Z" fill="#fff" />
+                  </svg>
+                ) : userData.role === 'medicine' ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path d="M160-80q-33 0-56.5-23.5T80-160v-480q0-33 23.5-56.5T160-720h160v-80q0-33 23.5-56.5T400-880h160q33 0 56.5 23.5T640-800v80h160q33 0 56.5 23.5T880-640v480q0 33-23.5 56.5T800-80H160Zm0-80h640v-480H160v480Zm240-560h160v-80H400v80ZM160-160v-480 480Zm280-200v120h80v-120h120v-80H520v-120h-80v120H320v80h120Z" fill="#fff" />
+                  </svg>
+                ) : userData.role === 'clothes' ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path d="M120-160q-17 0-28.5-11.5T80-200q0-10 4-18.5T96-232l344-258v-70q0-17 12-28.5t29-11.5q25 0 42-18t17-43q0-25-17.5-42T480-720q-25 0-42.5 17.5T420-660h-80q0-58 41-99t99-41q58 0 99 40.5t41 98.5q0 47-27.5 84T520-526v36l344 258q8 5 12 13.5t4 18.5q0 17-11.5 28.5T840-160H120Zm120-80h480L480-420 240-240Z" fill="#fff" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path d="M280-160H160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640v80H160v480h120v80Zm160-100q25 0 42.5-17.5T500-320q0-25-17.5-42.5T440-380q-25 0-42.5 17.5T380-320q0 25 17.5 42.5T440-260Zm-80 100v-71q-19-17-29.5-40T320-320q0-26 10.5-49t29.5-40v-71h160v71q19 17 29.5 40t10.5 49q0 26-10.5 49T520-231v71H360Zm480 0H640q-17 0-28.5-11.5T600-200v-360q0-17 11.5-28.5T640-600h200q17 0 28.5 11.5T880-560v360q0 17-11.5 28.5T840-160Zm-160-80h120v-280H680v280Zm0 0h120-120Z" fill="#fff" />
+                  </svg>
+                )
+              }
+
+
+              {userData.productName}
+            </NavLink>
+          </div>
+          {userData.role === "food" ? (
+            <>
+              <div className="text-center rounded-lg">{`${time.hours}:${time.minutes}:${time.seconds}`}</div>
+            </>
+          ) : (
+            <></>
+          )}
+
+          <div id="Profile" className="flex items-center">
+
+            <Link to='/browse'>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -134,16 +173,9 @@ const CardClothes = (props) => {
                 />
               </svg>{" "}
               {userData.userName}
-            </a>
+            </Link>
           </div>
-          {userData.role === "food" ? (
-            <>
-              <div className="text-center rounded-lg">{`${time.hours}:${time.minutes}:${time.seconds}`}</div>
-            </>
-          ) : (
-            <></>
-          )}
-          <div id="Distance">
+          {/* <div id="Distance">
             <span
               id="Posted how many days ago"
               className="mx-2  bg-gray-800 text-gray-800 text-sm font-medium inline-flex items-center px-2.5 py-0.5 rounded mr-2 dark:bg-gray-700 dark:text-gray-400 border border-gray-500"
@@ -164,52 +196,18 @@ const CardClothes = (props) => {
               </svg>
               <span className="text-sm pl-1">{userData.distance}</span>
             </span>
-          </div>
+          </div> */}
         </div>
-
-        <div
-          id="join chats buttons"
-          className="flex justify-between mx-3 my-1 "
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.9 }}
+          type="submit"
+          className=" w-full px-5 py-3 text-base font-semibold text-center text-white bg-[#51D6FF] rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-[100%] lg:w-[100%] dark:bg-[#51D6FF] dark:hover:bg-[#37FF8B] dark:focus:ring-blue-800 transition duration-500 ease-in-out"
         >
-          <button>
-            <a className=" mx-2 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-[#51D6FF] dark:text-[black] dark:hover:bg-[#06C0F8] dark:hover:scale-105 dark:focus:ring-blue-800 ease-in-out duration-300 transition-all">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6 inline-block mr-2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"
-                />
-              </svg>
-              <span className="sm:hidden md:inline">Join Chat</span>
-            </a>
-          </button>
-          <button>
-            <a className="mx-2 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-[#51D6FF] dark:text-[black] dark:hover:bg-[#06C0F8] dark:hover:scale-105 dark:focus:ring-blue-800 ease-in-out duration-300 transition-all">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6 inline-block mr-2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
-                />
-              </svg>
-              <span className="inline sm:hidden md:inline">Join Community</span>
-            </a>
-          </button>
-        </div>
+          Interested
+        </motion.button>
+
+
       </div>
     </div>
   );

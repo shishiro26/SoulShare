@@ -5,13 +5,13 @@ import { Route, Routes } from "react-router-dom";
 import Landing from "./Pages/LandingPage";
 import Browse from "./Pages/browse";
 import ChatBox from "./Components/chatBox";
-import { useEffect } from "react";
+import Profile from "./Pages/Profile";
 // import AboutUs from "./Components/AboutUs";
+import PageNotFound from "./Pages/PageNotFound";
+import CardPage from "./Pages/CardPage";
 
 function App() {
-  useEffect(() => {
-    alert(`Working in progress`);
-  }, []);
+
   return (
     <div>
       <Routes>
@@ -22,6 +22,10 @@ function App() {
         <Route path="/browse" element={<Browse />} />
         {/* <Route path="/about" element={<AboutUs />} /> */}
         <Route path="/yourChats" element={<ChatBox />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/card" element={<CardPage />} />
+        <Route path="*" element={<PageNotFound />} />
+
       </Routes>
     </div>
   );

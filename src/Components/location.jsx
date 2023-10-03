@@ -5,20 +5,17 @@ import axios from "axios";
 const API_endpoint = `https://api.openweathermap.org/data/2.5/weather?`;
 
 function Location() {
-  const country = responseData.sys?.country || "";
-  const areaName = responseData.name || "";
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [responseData, setResponseData] = useState({});
-  const [dialogVisible, setDialogVisible] = useState(true);
+  const [dialogVisible, setDialogVisible] = useState(false);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
-      console.log("Fetching the data...")
-      console.log(position.coords.latitude, position.coords.longitude);
     });
+    
   }, []);
 
   useEffect(() => {
@@ -33,11 +30,12 @@ function Location() {
             setResponseData({ ...res.data });
           })
           .catch((err) => console.log(err.message));
-      }, 1000);
+      }, 100);
     }
   }, [latitude, longitude]);
 
-
+  const country = responseData.sys?.country || "";
+  const areaName = responseData.name || "";
 
   const toggleDialog = () => {
     setDialogVisible(!dialogVisible);
@@ -48,10 +46,10 @@ function Location() {
         <>
           {latitude && longitude ? (
             <section className="w-[100%]">
-              <div className="pt-2 mx-auto  max-w-screen-xl text-center z-10 relative">
+              <div className="py-3  mx-auto  max-w-screen-xl text-center z-10 relative">
                 <NavLink
                   to="#"
-                  className="flex justify-between items-center  py-1 px-1 pr-4  text-sm text-gray-700 bg-blue-100 rounded-full dark:bg-[#51D6FF]"
+                  className="flex justify-between items-center  py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-blue-100 rounded-full dark:bg-[#51D6FF]"
                 >
                   <span className="block text-xs dark:bg-[#37FF8B] rounded-full text-gray-900 px-4 py-1.5 mr-3">
                     New Location
@@ -62,7 +60,7 @@ function Location() {
                     </span>
                     <button
                       type="button"
-                      className="ml-auto -mx-1.5 -my-1.5  rounded-lg  p-1.5 hover:bg-[#37FF8B] inline-flex items-center justify-center h-8 w-8 "
+                      className="ml-auto -mx-1.5 -my-1.5  rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-[#37FF8B] inline-flex items-center justify-center h-8 w-8 "
                       data-dismiss-target="#alert-1"
                       onClick={toggleDialog}
                       aria-label="Close"

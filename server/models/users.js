@@ -3,13 +3,25 @@ import validator from "validator";
 
 const userSchema = mongoose.Schema(
   {
-    id: String,
     UserName: {
       type: String,
       required: [true, "Username is required"],
       min: 2,
       max: 50,
     },
+    firstName: {
+      type: String,
+      required: [true, "firstName is required"],
+      min: 2,
+      max: 50,
+    },
+    lastName: {
+      type: String,
+      required: [true, "lastName is required"],
+      min: 2,
+      max: 50,
+    },
+
     email: {
       type: String,
       required: [true, "email is required"],

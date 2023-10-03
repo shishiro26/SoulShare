@@ -26,7 +26,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="flex flex-row ">
+      <div className="flex flex-row bg-gray-900">
         <Navbar />
         <section>
           <div className="bg-gray-50 dark:bg-gray-900 bg-gray-800">
