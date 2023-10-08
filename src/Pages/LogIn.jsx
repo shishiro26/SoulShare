@@ -15,10 +15,61 @@ const Login = () => {
     email: "",
     password: ""
   })
+  const [error, setError] = useState(null)
+
+  const handleCheckboxChange = (e) => {
+    setIsChecked(e.target.checked)
+  }
+
+  const handleInputChange = (e) => {
+
+    const { name, value } = e.target
+
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value
+    }
+    ))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/auth/login`, {
+        method: 'POST',
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+      if (!response.ok) {
+        console.log("The status code :", response.status)
+        const errorData = await response.json();
+        throw new Error(errorData.error);
+
+      }
+      const data = await response.json()
+      console.log(data)
+      console.log("The status code :", response.status)
+      sessionStorage.setItem("userId", data.userId);
+      sessionStorage.setItem("email", data.email)
+      setFormData({
+        email: "",
+        password: ""
+      })
+      setIsChecked(false)
+      setError(null)
+
+    } catch (error) {
+      setError(error)
+      console.error(`Error logging the user`, error.message)
+    }
+  }
 
 
 
-
+  const compulsory = <span className="text-red-600">*</span>
   return (
     <>
       <div className="flex flex-row bg-gray-900">
@@ -75,7 +126,8 @@ const Login = () => {
                   <h2>Sign In to SoulShare</h2>
                 </div>
                 <form
-                  action="#"
+                  onSubmit={handleSubmit}
+                  method="POST"
                   className="mt-8 space-y-6 "
                 >
                   <div>
@@ -83,12 +135,14 @@ const Login = () => {
                       htmlFor="email"
                       className="block mb-2 text-sm font-medium text-medium dark:text-white"
                     >
-                      Email
+                      Email{compulsory}
                     </label>
                     <input
                       type="email"
                       name="email"
                       id="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
                       placeholder="example@gmail.com"
                       autoComplete="off"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -100,7 +154,7 @@ const Login = () => {
                       htmlFor="password"
                       className="block mb-2 text-sm font-medium text-medium dark:text-white"
                     >
-                      Password
+                      Password{compulsory}
                     </label>
                     <div className="flex">
                       <input
@@ -108,6 +162,8 @@ const Login = () => {
                         name="password"
                         id="password"
                         placeholder="••••••••"
+                        value={formData.password}
+                        onChange={handleInputChange}
                         autoComplete="off"
                         className="bg-gray-50 border border-gray-300 border-r-0 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-r-none"
                         required
@@ -145,7 +201,9 @@ const Login = () => {
                         id="remember"
                         aria-describedby="remember"
                         name="remember"
+                        checked={isChecked}
                         type="checkbox"
+                        onChange={handleCheckboxChange}
                         className="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
                         required
                       />
@@ -165,6 +223,13 @@ const Login = () => {
                       Lost Password?
                     </a>
                   </div>
+                  {
+                    error && (
+                      <h1 className="text-xl font-sans text-red-500 font-base mb-4 animate-bounce delay-1000">
+                        Invalid password or username
+                      </h1>
+                    )
+                  }
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.9 }}
@@ -240,9 +305,9 @@ const Login = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section >
         <ShareSocials />
-      </div>
+      </div >
     </>
   );
 };

@@ -10,26 +10,83 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
-*, :after, :before {
-    box-sizing: border-box;
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
 }
-*, :after, :before {
-    box-sizing: border-box;
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
 }
+
 ::selection {
-    background: rgb(var(--rgbAccent));
-    color: rgb(var(--rgbBlack));
+  background: rgb(var(--rgbAccent));
+  color: rgb(var(--rgbBlack));
 }
 
 
 .Navbar_navList__mg4Oa {
-  transform: rotate(-90deg) translate3d(-50%,0,0);
+  transform: rotate(-90deg) translate3d(-50%, 0, 0);
   display: flex;
   flex-direction: row-reverse;
   position: relative;
   top: calc(var(--spaceM) * -1);
 }
 
+.toast-message {
+  color: #000;
+  font-size: 15px;
+  padding: 10px 12px;
+  position: relative;
+  background: #f3f3f3;
+}
 
+.loader {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1s linear infinite
+}
 
+.loader::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 5px solid #FFF;
+  animation: prixClipFix 2s linear infinite;
+}
 
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)
+  }
+
+  25% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)
+  }
+
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)
+  }
+
+  75% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%)
+  }
+
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0)
+  }
+}

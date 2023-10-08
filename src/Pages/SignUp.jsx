@@ -1,29 +1,107 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
 import Navbar from "../Components/Navbar";
 import ShareSocials from "../Components/ShareSocials";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import '../index.css'
+import Loader from "../Components/Loader";
+
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState("");
   const togglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const [data, setData] = useState({
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    UserName: "",
     firstName: "",
     lastName: "",
     email: "",
-    contactNumber: "",
     password: "",
     confirmPassword: "",
-  });
+    Number: "",
+    latitude: "",
+    longitude: ""
+  })
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setFormData((prevFormData) => ({
+        ...prevFormData, latitude: position.coords.latitude, longitude: position.coords.longitude
+
+      }))
+    })
+  }, [])
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value
+    }
+    ))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true);
+    console.log(formData)
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/auth/register`, {
+        method: 'POST',
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+      if (!response.ok) {
+        console.log("The status code :", response.status)
+        const errorData = await response.json();
+        throw new Error(errorData.error);
+
+      }
+      const data = await response.json()
+      console.log(data)
+      console.log("The status code :", data.userId)
+
+      sessionStorage.setItem("userId", data.userId);
+      sessionStorage.setItem("email", data.email)
+
+      navigate(`/verifyemail/${data.userId}`);
+
+      setFormData({
+        UserName: "",
+        firstName: "",
+        lastName: "",
+        Number: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        latitude: "",
+        longitude: "",
+      })
+      setError(null)
+
+    } catch (error) {
+      setError(error.message);
+      console.error(`Error logging the user`, error.message);
+      toast('Error creating an account!', {
+        position: toast.POSITION.TOP_RIGHT,
+        className: 'toast-message'
+      });
+    } finally {
+      setLoading(false);
+    }
   };
-
   return (
     <>
       <div className="flex flex-row bg-gray-900">
@@ -86,11 +164,10 @@ const SignUp = () => {
                 <div className="text-2xl font-bold tex-gray-900 dark:text-white sm:w-[100%]">
                   <h2>Sign up to SoulShare</h2>
                 </div>
-                <form
-                  action="#"
-                  onSubmit={handleFormSubmit}
-                  className="mt-8 space-y-5 "
-                >
+                <form onSubmit={handleSubmit}
+                  method="POST"
+                  className="mt-8 space-y-5">
+
                   <div className="flex flex-row justify-between flex flex-col space-y-4 sm:flex-row sm:justify-center  sm:space-y-0 sm:space-x-4">
                     <div className=" sm:w-[100%] md:w-[50%] lg:w-[50%]">
                       <label
@@ -103,10 +180,8 @@ const SignUp = () => {
                         type="text"
                         name="firstName"
                         id="firstName"
-                        value={data.firstName}
-                        onChange={(e) => {
-                          setData({ ...data, firstName: e.target.value });
-                        }}
+                        value={formData.firstName}
+                        onChange={handleInputChange}
                         placeholder="example"
                         autoComplete="off"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full sm:w-[100%]  p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -124,16 +199,33 @@ const SignUp = () => {
                         type="text"
                         name="lastName"
                         id="lastName"
-                        value={data.lastName}
-                        onChange={(e) => {
-                          setData({ ...data, lastName: e.target.value });
-                        }}
+                        value={formData.lastName}
+                        onChange={handleInputChange}
                         placeholder="example"
                         autoComplete="off"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required
                       />
                     </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="Username"
+                      className="block mb-2 text-sm font-medium text-medium dark:text-white"
+                    >
+                      Username
+                    </label>
+                    <input
+                      type="text"
+                      name="UserName"
+                      id="UserName"
+                      value={formData.UserName}
+                      onChange={handleInputChange}
+                      placeholder="john"
+                      autoComplete="off"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      required
+                    />
                   </div>
                   <div>
                     <label
@@ -146,10 +238,8 @@ const SignUp = () => {
                       type="email"
                       name="email"
                       id="email"
-                      value={data.email}
-                      onChange={(e) => {
-                        setData({ ...data, email: e.target.value });
-                      }}
+                      value={formData.email}
+                      onChange={handleInputChange}
                       placeholder="example@gmail.com"
                       autoComplete="off"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -165,12 +255,10 @@ const SignUp = () => {
                     </label>
                     <input
                       type="text"
-                      name="Contact"
+                      name="Number"
                       id="Contact"
-                      value={data.contactNumber}
-                      onChange={(e) => {
-                        setData({ ...data, contactNumber: e.target.value });
-                      }}
+                      value={formData.Number}
+                      onChange={handleInputChange}
                       placeholder="***** *****"
                       autoComplete="off"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -189,12 +277,10 @@ const SignUp = () => {
                         type={showPassword ? "text" : "password"}
                         name="password"
                         id="password"
-                        value={data.password}
                         placeholder="••••••••"
                         autoComplete="off"
-                        onChange={(e) => {
-                          setData({ ...data, password: e.target.value });
-                        }}
+                        value={formData.password}
+                        onChange={handleInputChange}
                         className="bg-gray-50 border border-gray-300 border-r-0 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-r-none"
                         required
                       />
@@ -236,10 +322,8 @@ const SignUp = () => {
                         type={showPassword ? "text" : "password"}
                         name="confirmPassword"
                         id="confirmPassword"
-                        value={data.confirmPassword}
-                        onChange={(e) => {
-                          setData({ ...data, confirmPassword: e.target.value });
-                        }}
+                        value={formData.confirmPassword}
+                        onChange={handleInputChange}
                         placeholder="••••••••"
                         autoComplete="off"
                         className="bg-gray-50 border border-gray-300 border-r-0 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-r-none"
@@ -272,7 +356,6 @@ const SignUp = () => {
                       </svg>
                     </div>
                   </div>
-
                   <motion.button
                     type="submit"
                     whileHover={{ scale: 1.05 }}

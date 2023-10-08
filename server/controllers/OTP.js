@@ -22,6 +22,35 @@ export const verifyOtp = async (req, res) => {
   }
 };
 
+/* Resending in the otp */
+
+export const resendOtp = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    console.log(user.email);
+    /* Generating an OTP */
+    const otp = await otpGenerator.generate(6, {
+      digits: true,
+      specialChars: false,
+      upperCaseAlphabets: false,
+      lowerCaseAlphabets: false,
+    });
+    const email = user.email
+
+    await OTP.create({ otp, email });
+    sendMailer(user.email, otp, user.UserName, "resendOTP");
+    return res.status(200).json({ message: "OTP sent successfully", otp });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
 /* Verifying the otp sent for the deletion of the email */
 export const sendDeleteOtp = async (req, res) => {
   try {

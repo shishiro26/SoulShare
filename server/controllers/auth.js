@@ -67,28 +67,26 @@ export const register = async (req, res) => {
     if (savedUser) {
       /* Sending an email to the user */
       sendMailer(email, otp, savedUser.UserName, "registration");
-      const acccessToken = await AccessToken(savedUser._id)
+      const accessToken = await AccessToken(savedUser._id)
       const refreshToken = await RefreshToken(savedUser._id)
-      res.cookie('AccessToken', acccessToken, {
-        httpOnly: true,
+      res.cookie('AccessToken', accessToken, {
         secure: true,
         sameSite: "strict",
         maxAge: 20 * 60 * 1000,
       })
       res.cookie('RefreshToken', refreshToken, {
-        httpOnly: true,
         secure: true,
         sameSite: "strict",
         maxAge: 30 * 24 * 60 * 60 * 1000
       })
 
       res.status(201).json({
-        message: `New User ${UserName} created \n,
-                  otp: ${otp} \n, 
-                  accessToken:${acccessToken} \n,
-                  refreshToken: ${refreshToken}\n`
-
+        acccessToken: accessToken,
+        refreshToken: refreshToken,
+        userId: user._id,
+        email: user.email
       });
+
 
     } else {
       res.status(400).json({ message: "Invalid user data received" });
@@ -126,7 +124,9 @@ export const login = async (req, res) => {
 
       res.json({
         acccessToken: accessToken,
-        refreshToken: refreshToken
+        refreshToken: refreshToken,
+        userId: user._id,
+        email: user.email
       });
     } else {
       res.status(401).json({ message: "Invalid Credentials" });

@@ -30,7 +30,11 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 // app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("dev")); //logs the requests with some information
 app.use(express.urlencoded({ extended: true })); // Handle form data
-app.use(cors());
+app.use(cors(
+  {
+    origin: 'http://localhost:5173',
+    credentials: true
+  }));
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
