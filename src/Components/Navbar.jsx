@@ -16,9 +16,11 @@ const Navbar = () => {
           "Content-Type": "application/json",
         },
       })
-      sessionStorage.clear()
+      Cookies.remove("userId")
+      Cookies.remove("email")
       toast('Logout Successful')
       navigate('/')
+      window.location.reload()
 
     } catch (error) {
       console.log("Error logging out")
@@ -72,6 +74,10 @@ const Navbar = () => {
               data-navbar-item="true"
               className="p-[16px] font-[500] text-sm no-underline relative transition-all hover:text-[#37FF8B]  z-[80]"
               aria-current=""
+              onClick={() => {
+                const anchor = document.querySelector("#contact-link");
+                anchor.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
               to="/"
             >
               Contact
@@ -94,7 +100,7 @@ const Navbar = () => {
                 data-navbar-item="true"
                 className="p-[16px] font-[500] text-sm no-underline relative transition-all hover:text-[#37FF8B]  z-[80]"
                 aria-current=""
-                to="/login"
+                to="/profile"
               >
                 Profile
               </NavLink>

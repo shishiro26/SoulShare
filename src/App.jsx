@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Loader from "./Components/Loader";
+import axios from "axios";
 
 const Landing = lazy(() => import("./Pages/LandingPage"));
 const SignUp = lazy(() => import("./Pages/SignUp"));
@@ -20,7 +21,6 @@ function App() {
   const toastConfig = {
     autoClose: false,
   };
-
   return (
     <>
       <ToastContainer {...toastConfig} />

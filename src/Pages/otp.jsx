@@ -5,6 +5,7 @@ import '../index.css';
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const OtpBox = () => {
     const navigate = useNavigate()
@@ -30,13 +31,15 @@ const OtpBox = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ otp: otpValue, email: sessionStorage.getItem('email') })
+                body: JSON.stringify({ otp: otpValue, email: Cookies.get('email') })
             });
             if (response.ok) {
+                window.reload()
                 navigate('/')
                 toast.success('Email verification successful!');
             } else {
                 console.error('Email verification failed.');
+                toast.error("OTP is invalid")
             }
         } catch (error) {
             console.error('Error verifying email:', error);
@@ -51,7 +54,7 @@ const OtpBox = () => {
     const handleResend = async () => {
         try {
             const response = await fetch(
-                `${import.meta.env.VITE_BASE_URL}/api/auth/otp/resend/${sessionStorage.getItem('userId')}`,
+                `${import.meta.env.VITE_BASE_URL}/api/auth/otp/resend/${Cookies.get('userId')}`,
                 {
                     method: "POST",
                     headers: {
@@ -90,7 +93,7 @@ const OtpBox = () => {
                                 <p>Email Verification</p>
                             </div>
                             <div className="flex flex-row text-sm font-medium text-gray-400">
-                                <p>We have sent a code to your email {sessionStorage.getItem('email')}</p>
+                                <p>We have sent a code to your email {Cookies.get('email')}</p>
                             </div>
                         </div>
 

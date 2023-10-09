@@ -9,7 +9,7 @@ import {
   deleteUser,
   refreshroute,
 } from "../controllers/Auth.js";
-import { verifyAccessToken, verifyRefreshToken } from "../utils/generateToken.js";
+import { verifyAccessToken } from "../utils/generateToken.js";
 
 router.post("/register", register);
 router.post("/login", login);

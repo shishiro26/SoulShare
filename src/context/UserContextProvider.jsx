@@ -4,10 +4,8 @@ import Cookies from "js-cookie";
 
 export const UserContextProvider = ({ children }) => {
     const [loggedIn, setLoggedIn] = useState(true);
-
     useEffect(() => {
         const accessToken = Cookies.get("AccessToken");
-
         if (accessToken) {
             setLoggedIn(true);
         } else {

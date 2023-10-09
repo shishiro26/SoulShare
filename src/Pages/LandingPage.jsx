@@ -3,6 +3,7 @@ import Feature from "../Components/Feature.jsx";
 import AboutUs from "../Components/AboutUs.jsx";
 import Testimonials from "../Components/Testimonials.jsx";
 import Navbar from "../Components/Navbar";
+import Contact from "../Components/Contact.jsx";
 
 const LandingPage = () => {
   return (
@@ -14,6 +15,7 @@ const LandingPage = () => {
           <Feature />
           <AboutUs />
           <Testimonials />
+          <Contact />
         </div>
         {/* <Button/> */}
       </div>

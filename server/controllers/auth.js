@@ -55,12 +55,11 @@ export const register = async (req, res) => {
       Number,
       email,
       password: hashedPwd,
-      image: `https://api.dicebear.com/5.x/initials/svg?seed=${UserName}`,
+      image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
       latitude,
       longitude,
       isVerified: false,
     });
-
     const savedUser = await user.save()
 
     /* if the user is created than we are generating an token for the user */
@@ -92,6 +91,7 @@ export const register = async (req, res) => {
       res.status(400).json({ message: "Invalid user data received" });
     }
   } catch (err) {
+    console.log("error ", err.message)
     res.status(500).json({ message: "this is the error", error: err });
   }
 };
@@ -109,13 +109,11 @@ export const login = async (req, res) => {
       const refreshToken = await RefreshToken(user._id)
 
       res.cookie('AccessToken', accessToken, {
-        httpOnly: true,
         secure: true,
         sameSite: 'strict',
         maxAge: 20 * 60 * 1000,
       });
       res.cookie('RefreshToken', refreshToken, {
-        httpOnly: true,
         secure: true,
         sameSite: "strict",
         maxAge: 30 * 24 * 60 * 60 * 1000
@@ -197,7 +195,6 @@ export const updateImage = async (req, res) => {
     }
 
     if (userDetails.isVerified) {
-      const { image } = req.body;
       const base64Image = req?.file?.buffer.toString("base64");
 
       await User.findByIdAndUpdate(id, {
@@ -313,15 +310,18 @@ export const deleteUser = async (req, res) => {
   }
 };
 
-
 export const refreshroute = async (req, res) => {
   try {
     const refreshToken = req.cookies.RefreshToken;
-    console.table(req.cookies.RefreshToken)
     if (!refreshToken) {
       return res.status(401).json({ error: 'Refresh token missing' });
     }
+
     const userId = await verifyRefreshToken(refreshToken);
+    if (!userId) {
+      return res.status(401).json({ error: 'Invalid refresh token' });
+    }
+
     const accessToken = await AccessToken(userId);
     const refToken = await RefreshToken(userId);
 
@@ -334,12 +334,11 @@ export const refreshroute = async (req, res) => {
     res.cookie('RefreshToken', refToken, {
       httpOnly: true,
       secure: true,
-      sameSite: "strict",
-      maxAge: 30 * 24 * 60 * 60 * 1000
+      sameSite: 'strict',
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    });
 
-    })
-
-    res.json({ AccessToken: accessToken, refreshToken: refToken });
+    res.status(200).json({ AccessToken: accessToken, refreshToken: refToken });
   } catch (error) {
     if (error.name === 'JsonWebTokenError') {
       return res.status(401).json({ error: 'Invalid refresh token' });

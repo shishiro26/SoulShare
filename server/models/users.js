@@ -44,7 +44,7 @@ const userSchema = mongoose.Schema(
     college: String,
     //storing the image in the base64 format,
     image: {
-      data: String,
+      type: String,
     },
     isVerified: { type: Boolean, default: false, required: true },
     markedForDeletion: { type: Boolean, default: false, required: true },

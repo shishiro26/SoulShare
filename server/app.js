@@ -4,7 +4,6 @@ import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
 dotenv.config();
-import createError from 'http-errors'
 import cookieParser from "cookie-parser";
 import connectDB from "./config/Config.js";
 import { logger } from "./middleware/logger.js";
@@ -15,7 +14,6 @@ import productRoutes from './routes/ProductRoutes.js'
 import multer from "multer";
 import { createProduct } from './controllers/Product.js'
 import { updateImage } from "./controllers/Auth.js";
-import { createServer } from 'http'
 /*Creating an Express Instance*/
 const app = express();
 
