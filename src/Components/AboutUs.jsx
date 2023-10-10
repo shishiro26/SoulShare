@@ -7,19 +7,19 @@ const people = [
     name: "Shishiro",
     role: "Frontend Developer",
     imageUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSudU6gmyeog5RWlz8b2FUxARwyrD-GMo9txw&usqp=CAU",
+      "https://api.dicebear.com/5.x/initials/svg?seed=shishiro",
   },
   {
     name: "Saketh Ram",
     role: "Backend Developer",
     imageUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBNnH7hPrYmvHPtcImonVIDwGgMIgtg5URew&usqp=CAU",
+      "https://api.dicebear.com/5.x/initials/svg?seed=saketh ram",
   },
   {
     name: "Kota-karthik",
     role: "Frontend Developer",
     imageUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSimMDuMEMZWRWmAqL1It9mF1Nw1o_iMY2UVQ&usqp=CAU",
+      "https://api.dicebear.com/5.x/initials/svg?seed=kota",
   },
 ];
 const AboutUs = () => {

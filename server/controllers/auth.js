@@ -188,7 +188,6 @@ export const updateImage = async (req, res) => {
 
     const { id } = req.params;
     const userDetails = await User.findById(id);
-    // if(req.payload.aud===id)
 
     if (!userDetails) {
       return res.status(404).json({ message: "User doesn't exist" });

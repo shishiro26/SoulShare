@@ -6,22 +6,33 @@ const userSchema = mongoose.Schema(
     UserName: {
       type: String,
       required: [true, "Username is required"],
-      min: 2,
-      max: 50,
+      validate: {
+        validator: (value) => {
+          return value.length >= 2 && value.length <= 50;
+        },
+        message: "Username must be between 2 and 50 characters",
+      },
     },
     firstName: {
       type: String,
-      required: [true, "firstName is required"],
-      min: 2,
-      max: 50,
+      required: [true, "First name is required"],
+      validate: {
+        validator: (value) => {
+          return value.length >= 2 && value.length <= 50;
+        },
+        message: "First name must be between 2 and 50 characters",
+      },
     },
     lastName: {
       type: String,
-      required: [true, "lastName is required"],
-      min: 2,
-      max: 50,
+      required: [true, "Last name is required"],
+      validate: {
+        validator: (value) => {
+          return value.length >= 2 && value.length <= 50;
+        },
+        message: "Last name must be between 2 and 50 characters",
+      },
     },
-
     email: {
       type: String,
       required: [true, "email is required"],
@@ -45,6 +56,12 @@ const userSchema = mongoose.Schema(
     //storing the image in the base64 format,
     image: {
       type: String,
+    },
+    role: {
+      type: String
+    },
+    description: {
+      type: String
     },
     isVerified: { type: Boolean, default: false, required: true },
     markedForDeletion: { type: Boolean, default: false, required: true },

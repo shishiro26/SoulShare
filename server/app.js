@@ -28,14 +28,11 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 // app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("dev")); //logs the requests with some information
 app.use(express.urlencoded({ extended: true })); // Handle form data
-// app.use(cors(
-//   {
-//     origin: 'http://localhost:5173',
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//     credentials: true,
-//     optionsSuccessStatus: 204,
-//   }));
-app.use(cors())
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://soul-share.vercel.app'],
+  credentials: true,
+  optionsSuccessStatus: 204,
+}));
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {

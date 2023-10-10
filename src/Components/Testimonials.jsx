@@ -40,7 +40,7 @@ export default function Testimonials() {
               <div className="flex items-center space-x-3">
                 <img
                   className="h-12 w-12 rounded-full"
-                  src="https://e0.pxfuel.com/wallpapers/378/1016/desktop-wallpaper-obito-uchiha-anime-naruto-shippuden-naruto.jpg"
+                  src="https://api.dicebear.com/5.x/initials/svg?seed=Tharun"
                 />
                 <div>
                   <p className="font-semibold text-gray-900">Tharun</p>
@@ -59,7 +59,7 @@ export default function Testimonials() {
               <div className="flex items-center space-x-3">
                 <img
                   className="h-12 w-12 rounded-full"
-                  src="https://e0.pxfuel.com/wallpapers/34/167/desktop-wallpaper-cute-naruto-anime-naruto-little-naruto-uzumaki.jpg"
+                  src="https://api.dicebear.com/5.x/initials/svg?seed=modal tharun"
                   alt="Testimonial Author"
                 />
                 <div>
@@ -80,7 +80,7 @@ export default function Testimonials() {
               <div className="flex items-center space-x-3">
                 <img
                   className="h-12 w-12 rounded-full"
-                  src="https://e0.pxfuel.com/wallpapers/527/113/desktop-wallpaper-naruto-no-modo-kurama-naruto-sasuke-sakura-naruto-sage-naruto-mobile-naruto-modo-kurama.jpg"
+                  src="https://api.dicebear.com/5.x/initials/svg?seed=Tonda"
                   alt="Testimonial Author"
                 />
                 <div>

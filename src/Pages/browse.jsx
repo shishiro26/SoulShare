@@ -7,19 +7,19 @@ import Categories from "../Components/categories";
 const Browse = () => {
   const slides = [
     {
-      url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSimMDuMEMZWRWmAqL1It9mF1Nw1o_iMY2UVQ&usqp=CAU",
+      url: "https://api.dicebear.com/5.x/initials/svg?seed=shishiro",
     },
     {
-      url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBNnH7hPrYmvHPtcImonVIDwGgMIgtg5URew&usqp=CAU",
+      url: "https://api.dicebear.com/5.x/initials/svg?seed=raghamai",
     },
     {
-      url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSudU6gmyeog5RWlz8b2FUxARwyrD-GMo9txw&usqp=CAU",
+      url: "https://api.dicebear.com/5.x/initials/svg?seed=balu",
     },
     {
-      url: "https://e0.pxfuel.com/wallpapers/378/1016/desktop-wallpaper-obito-uchiha-anime-naruto-shippuden-naruto.jpg",
+      url: "https://api.dicebear.com/5.x/initials/svg?seed=sunitha",
     },
     {
-      url: "https://e0.pxfuel.com/wallpapers/34/167/desktop-wallpaper-cute-naruto-anime-naruto-little-naruto-uzumaki.jpg",
+      url: "https://api.dicebear.com/5.x/initials/svg?seed=digvijay",
     },
   ];
 

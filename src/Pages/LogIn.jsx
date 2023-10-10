@@ -7,6 +7,10 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Components/Loader";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import '../index.css'
+
 
 const Login = () => {
   const navigate = useNavigate()
@@ -52,8 +56,12 @@ const Login = () => {
       })
       if (!response.ok) {
         console.log("The status code :", response.status)
+        if (response.status === 401) {
+          toast.error("Invalid Credentials")
+        }
         const errorData = await response.json();
         throw new Error(errorData.error);
+
 
       }
       const data = await response.json()
@@ -82,7 +90,7 @@ const Login = () => {
   return (
     <>
       {isLoading ? <Loader /> :
-        <div className="flex flex-row bg-gray-900">
+        <div className="flex flex-row bg-gray-900 select-text">
           <Navbar />
           <section>
             <div className="bg-gray-50 dark:bg-gray-900 bg-gray-800">
@@ -143,7 +151,7 @@ const Login = () => {
                     <div>
                       <label
                         htmlFor="email"
-                        className="block mb-2 text-sm font-medium text-medium dark:text-white"
+                        className="block mb-2 text-sm font-medium text-medium dark:text-white select-text"
                       >
                         Email{compulsory}
                       </label>
@@ -155,14 +163,14 @@ const Login = () => {
                         onChange={handleInputChange}
                         placeholder="example@gmail.com"
                         autoComplete="off"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 select-all"
                         required
                       />
                     </div>
                     <div>
                       <label
                         htmlFor="password"
-                        className="block mb-2 text-sm font-medium text-medium dark:text-white"
+                        className="block mb-2 text-sm font-medium text-medium dark:text-white select-all"
                       >
                         Password{compulsory}
                       </label>
@@ -175,7 +183,7 @@ const Login = () => {
                           value={formData.password}
                           onChange={handleInputChange}
                           autoComplete="off"
-                          className="bg-gray-50 border border-gray-300 border-r-0 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-r-none"
+                          className="bg-gray-50 border border-gray-300 border-r-0 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-r-none select-all"
                           required
                         />
                         <svg
@@ -233,13 +241,6 @@ const Login = () => {
                         Lost Password?
                       </a>
                     </div>
-                    {
-                      error && (
-                        <h1 className="text-xl font-sans text-red-500 font-base mb-4 animate-bounce delay-1000">
-                          Invalid password or username
-                        </h1>
-                      )
-                    }
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.9 }}
