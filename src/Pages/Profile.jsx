@@ -7,13 +7,20 @@ import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import Loader from '../Components/Loader';
 import ImageModal from '../Components/modal/ImageModal';
+import { toast } from "react-toastify";
+import '../index.css'
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Profile = () => {
+    
     const [userData, setUserData] = useState({});
     const [loadingUser, setLoadingUser] = useState(true);
     const [loadingWeather, setLoadingWeather] = useState(true);
+    const [loadingCardData, setLoadingCardData] = useState(true);
     const [location, setLocation] = useState({});
     const [modalOpen, setModalOpen] = useState(false);
+    const [cardData, setCardData] = useState({})
     const close = () => setModalOpen(false);
     const open = () => setModalOpen(true);
 
@@ -58,8 +65,26 @@ const Profile = () => {
         }
     };
 
+    const fetchCardData = async () => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/product/get/${Cookies.get("userId")}`, {
+                method: "GET",
+                credentials: "include"
+            })
+            const data = await response.json()
+            setCardData(data);
+            console.log(data)
+        } catch (error) {
+            console.log("Error", error.message)
+            toast.error(error.message);
+        } finally {
+            setLoadingCardData(false);
+        }
+    }
+
     useEffect(() => {
         fetchData();
+        fetchCardData()
     }, []);
 
     useEffect(() => {
@@ -74,17 +99,7 @@ const Profile = () => {
         return new Date(dateString).toLocaleDateString(undefined, options);
     };
 
-    const cardClothesData = [
-        { userName: 'User123', distance: 120, roles: "food" },
-        { userName: "Fashionista", distance: 20, roles: "food" },
-        { userName: "Trendsetter", distance: 50, roles: "medicines" },
-        { userName: "Trendsetter", distance: 50, roles: "other" },
-        { userName: "tharun", distance: 50, roles: "food" },
-        { userName: "Trendsetter", distance: 50, roles: "other" },
-        { userName: "Trendsetter", distance: 50, roles: "other" },
-        { userName: "Trendsetter", distance: 50, roles: "other" },
-        { userName: "Trendsetter", distance: 50, roles: "other" },
-    ];
+
 
     return (
         <>
@@ -100,10 +115,35 @@ const Profile = () => {
                         <div className='p-3 flex flex-row items-start bg-gray-900'>
                             <div className='bg-gray-900 p-3 border-b-4 border-green-400 max-w-sm'>
                                 <div className='image overtflow-hidden'>
-                                    <img className="h-auto w-full mx-auto"
-                                        src={`data:image/png;base64, ${userData.data.image}`}
-                                        alt="profile"
-                                    />
+                                    {userData.data.image.startsWith("https://api.dicebear.com/5.x/initials/svg?seed") ? (
+                                        <img
+                                            className="h-auto w-full mx-auto"
+                                            src={userData.data.image}
+                                            alt="profile"
+                                        />
+                                    ) : (
+                                        <img
+                                            className="h-auto w-full mx-auto"
+                                            src={`data:image/png;base64,${userData.data.image}`}
+                                            alt="profile"
+                                        />
+                                    )}
+                                    <div className='bg-gray-900 p-3 border-b-4 border-green-400 max-w-sm'>
+                                        <div className='image overflow-hidden'>
+                                            {userData.data.image.startsWith("data:image/png;base64,") ||
+                                                userData.data.image.startsWith("https://api.dicebear.com/5.x/initials/svg?seed") ? (
+                                                <img
+                                                    className="h-auto w-full mx-auto"
+                                                    src={userData.data.image}
+                                                    alt="profile"
+                                                />
+                                            ) : (
+                                                <p>No image available</p>
+                                            )}
+                                        </div>
+                                    </div>
+
+
                                 </div>
                                 {(userData.data.email === 'bannu1302@gmail.com' || userData.data.email === 'dheeravathshishiro@gmail.com' || userData.data.email === 'lcs2022014@iiitl.ac.in') ? (
                                     <>
@@ -211,19 +251,24 @@ const Profile = () => {
                                                 </NavLink>
                                             </li>
                                         </ul>
-                                        <div className='overflow-auto max-h-[300px]'>
-                                            <ul className="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-                                                {cardClothesData.map((data, index) => (
-                                                    <li key={index} className="m-5">
-                                                        <CardClothes
-                                                            userName={data.userName}
-                                                            distance={data.distance}
-                                                            role={data.roles}
-                                                        />
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
+                                        {
+                                            loadingCardData ? <Loader /> :
+                                                <div className='overflow-auto max-h-[300px]'>
+                                                    <ul className="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+                                                        {cardData.map((data, index) => (
+                                                            <li key={index} className="m-5">
+                                                                <CardClothes
+                                                                    userName={data.userName}
+                                                                    role={data.productType}
+                                                                    image={data.productImage}
+                                                                    distance={data.distance}
+                                                                />
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+
+                                        }
                                     </div>
                                 </div>
                             </div>

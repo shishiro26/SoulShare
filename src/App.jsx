@@ -30,9 +30,9 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/contact" element={<ContactUs />} />
-          <Route path="/verifyemail/:userId" element={<OtpBox />} />
+          <Route path="/verifyemail/:userId/productType/" element={<OtpBox />} />
           <Route path="/browse" element={<Browse />} />
-          <Route path="/card" element={<CardPage />} />
+          <Route path="/card/:productId" element={<CardPage />} />
           <Route path="*" element={<PageNotFound />} />
           <Route element={<PrivateRoutes />}>
             <Route path="/profile" element={<Profile />} />

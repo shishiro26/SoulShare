@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
 const CardClothes = (props) => {
-  const [heartColor, setHeartColor] = useState("none");
   const [userData, setUserData] = useState([]);
   const [time, setTime] = useState({
     hours: "",
@@ -17,13 +16,7 @@ const CardClothes = (props) => {
     setUserData(props);
     timer();
   }, []);
-  const ChangeHeartColor = () => {
-    if (heartColor === "none") {
-      setHeartColor("#51D6FF");
-    } else {
-      setHeartColor("none");
-    }
-  };
+
   const timer = () => {
     const presentTime = new Date();
     sessionStorage.setItem("currentTime", presentTime);
@@ -61,78 +54,31 @@ const CardClothes = (props) => {
     >
       <div className="w-[100%] h-[300px] overflow-hidden object-cover">
         <img
-          src={TestImage}
-          alt="/////"
+          src={`data:image/png;base64,${userData.image}`}
+          alt=""
           width="500"
           height="600"
           className="hover:scale-105 hover:rounded-lg ease-in-out duration-[350] transition-all rounded-lg"
         />
-        {userData?.role === "food" ? (
-          <div id="Heart" className="absolute top-0 right-0 mr-0 mt-7">
-            <button
-              aria-label="Add to wishlist: Jibhi, India"
-              data-testid="listing-card-save-button"
-              type="button"
-              className="mx-4 "
-              onClick={ChangeHeartColor}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill={heartColor}
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6 border-transparent"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-                />
-              </svg>
-            </button>
-          </div>
-        ) : (
-          <div id="Heart" className="absolute top-0 right-0 mr-0 mt-4 ">
-            <button
-              aria-label="Add to wishlist: Jibhi, India"
-              data-testid="listing-card-save-button"
-              type="button"
-              className="mx-4 "
-              onClick={ChangeHeartColor}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill={heartColor}
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6 border-transparent"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-                />
-              </svg>
-            </button>
-          </div>
-        )}
-      </div>
+      </div >
       <div id="Details">
         <div className="flex justify-between mx-2 my-1">
           <div>
-            <NavLink to="/card" className="inline-flex items-center">
+            <NavLink to={`/card/${userData.productId}?productType=${userData.role}`} className="inline-flex items-center">
               {
-                userData.role === 'food' ? (
+                userData.role === 'Food' ? (
                   <svg xmlns="http://www.w3.org/2000/svg" className="text-white" height="24" viewBox="0 -960 960 960" width="24">
                     <path d="M280-80v-366q-51-14-85.5-56T160-600v-280h80v280h40v-280h80v280h40v-280h80v280q0 56-34.5 98T360-446v366h-80Zm400 0v-320H560v-280q0-83 58.5-141.5T760-880v800h-80Z" fill="#fff" />
                   </svg>
-                ) : userData.role === 'medicine' ? (
+                ) : userData.role === 'Pickle' ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="text-white" height="24" viewBox="0 -960 960 960" width="24">
+                    <path d="M280-80v-366q-51-14-85.5-56T160-600v-280h80v280h40v-280h80v280h40v-280h80v280q0 56-34.5 98T360-446v366h-80Zm400 0v-320H560v-280q0-83 58.5-141.5T760-880v800h-80Z" fill="#fff" />
+                  </svg>
+                ) : userData.role === 'Medicine' ? (
                   <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                     <path d="M160-80q-33 0-56.5-23.5T80-160v-480q0-33 23.5-56.5T160-720h160v-80q0-33 23.5-56.5T400-880h160q33 0 56.5 23.5T640-800v80h160q33 0 56.5 23.5T880-640v480q0 33-23.5 56.5T800-80H160Zm0-80h640v-480H160v480Zm240-560h160v-80H400v80ZM160-160v-480 480Zm280-200v120h80v-120h120v-80H520v-120h-80v120H320v80h120Z" fill="#fff" />
                   </svg>
-                ) : userData.role === 'clothes' ? (
+                ) : userData.role === 'Clothes' ? (
                   <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                     <path d="M120-160q-17 0-28.5-11.5T80-200q0-10 4-18.5T96-232l344-258v-70q0-17 12-28.5t29-11.5q25 0 42-18t17-43q0-25-17.5-42T480-720q-25 0-42.5 17.5T420-660h-80q0-58 41-99t99-41q58 0 99 40.5t41 98.5q0 47-27.5 84T520-526v36l344 258q8 5 12 13.5t4 18.5q0 17-11.5 28.5T840-160H120Zm120-80h480L480-420 240-240Z" fill="#fff" />
                   </svg>
@@ -147,7 +93,7 @@ const CardClothes = (props) => {
               {userData.productName}
             </NavLink>
           </div>
-          {userData.role === "food" ? (
+          {userData.role === "Food" ? (
             <>
               <div className="text-center rounded-lg">{`${time.hours}:${time.minutes}:${time.seconds}`}</div>
             </>
@@ -209,7 +155,7 @@ const CardClothes = (props) => {
 
 
       </div>
-    </div>
+    </div >
   );
 };
 

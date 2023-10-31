@@ -34,7 +34,6 @@ const OtpBox = () => {
                 body: JSON.stringify({ otp: otpValue, email: Cookies.get('email') })
             });
             if (response.ok) {
-                window.reload()
                 navigate('/')
                 toast.success('Email verification successful!');
             } else {

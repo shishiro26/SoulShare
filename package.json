@@ -15,6 +15,8 @@
     "@heroicons/react": "^2.0.18",
     "@studio-freight/lenis": "^1.0.19",
     "axios": "^1.5.1",
+    "embla-carousel-autoplay": "^8.0.0-rc14",
+    "embla-carousel-react": "^8.0.0-rc14",
     "flowbite": "^1.8.1",
     "framer-motion": "^10.15.1",
     "gsap": "^3.12.2",

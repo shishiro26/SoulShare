@@ -5,6 +5,10 @@ const productSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
+    userName: {
+        type: String,
+        required: true
+    },
     productName: {
         type: String,
         required: true,
@@ -14,7 +18,7 @@ const productSchema = new mongoose.Schema({
     },
     productType: {
         type: String,
-        enum: ['food', 'medicine', 'pickle', 'other'],
+        enum: ['Food', 'Medicine', 'Pickle', 'Clothes', 'Other'],
         required: true,
     },
     description: {

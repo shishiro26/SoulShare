@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../Components/Loader";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import '../index.css'
+import "react-toastify/dist/ReactToastify.css";
 
 
 const Login = () => {
@@ -61,8 +61,6 @@ const Login = () => {
         }
         const errorData = await response.json();
         throw new Error(errorData.error);
-
-
       }
       const data = await response.json()
       console.log(data)

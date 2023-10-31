@@ -1,5 +1,5 @@
 import express from 'express';
-import { addComment, category, getProduct, likeProduct } from '../controllers/product.js';
+import { addComment, carouselImage, category, getProduct, likeProduct, getAllProducts, getsingleProduct } from '../controllers/product.js';
 import { verifyAccessToken } from '../utils/generateToken.js';
 const router = express.Router();
 
@@ -7,8 +7,10 @@ const router = express.Router();
 router.get('/get/:id', verifyAccessToken, getProduct)
 router.patch('/like/:productId/:userId', verifyAccessToken, likeProduct)
 router.patch('/comment/:productId/:userId', verifyAccessToken, addComment)
-router.get('/category/food/:userId', verifyAccessToken, category)
-
+router.get('/category/', category)
+router.get('/carousel', carouselImage)
+router.get("/getAll/", getAllProducts)
+router.get("/getSingle/:id", getsingleProduct)
 
 
 export default router;

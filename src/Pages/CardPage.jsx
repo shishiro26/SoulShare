@@ -1,7 +1,24 @@
 import Navbar from '../Components/Navbar'
 import { motion } from 'framer-motion'
 import CardClothes from '../Components/CardClothes';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
+import Loader from '../Components/Loader';
+import Cookies from 'js-cookie';
+
 const CardPage = () => {
+    const { productId } = useParams();
+    const [cardData, setCardData] = useState({});
+    const [similarData, setSimilarData] = useState({})
+    const [isLoading, setIsLoading] = useState(false);
+    const [similarProductsLoading, setSimilarProductsLoading] = useState(true);
+    const [formData, setFormData] = useState({
+        comment: ""
+    })
+    const location = useLocation();
+    const productType = new URLSearchParams(location.search).get('productType');
+
     const dishDetails = {
         title: 'Biryani',
         chef: 'Shishiro',
@@ -9,6 +26,66 @@ const CardPage = () => {
         description: 'Delicious Biryani dish made with the finest ingredients. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae exercitationem porro saepe ea harum corrupti vero id laudantium enim, libero blanditiis expedita cupiditate a est.',
         imageUrl: 'https://example.com/biryani-image.jpg',
     };
+    const fetchData = async () => {
+        try {
+            setSimilarProductsLoading(true);
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/product/category/?productType=${productType}`, {
+                method: "GET",
+                credentials: "include"
+            });
+            const data = await response.json();
+            setSimilarData(data);
+            console.log("Products fetched successfully");
+        } catch (error) {
+            console.error("Error", error.message);
+        } finally {
+            setSimilarProductsLoading(false);
+        }
+    };
+
+
+    const fetchCardData = async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/product/getSingle/${productId}`, {
+                method: "GET",
+                credentials: 'include',
+            });
+
+            const data = await response.json()
+            setCardData(data)
+        } catch (error) {
+            console.log("Error while fetching the data");
+        }
+        finally {
+            setIsLoading(false);
+        }
+    }
+
+    const addComment = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/product/comment/${productId}/${Cookies.get('userId')}`, {
+                method: 'POST',
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            })
+            const data = await response.json()
+            console.log(data)
+        } catch (error) {
+            console.error("Error while adding the comment", error);
+        }
+    };
+
+
+    useEffect(() => {
+        fetchCardData();
+        fetchData()
+    }, [productId]);
+
 
     const comments = [
         {
@@ -47,6 +124,7 @@ const CardPage = () => {
         { productName: 'Biryani', userName: "Trendsetter", distance: 50, roles: "food" },
     ];
 
+
     return (
         <div className='flex flex-row bg-gray-800  '>
             <Navbar />
@@ -64,25 +142,16 @@ const CardPage = () => {
                     <div className="flex flex-col items-center justify-center md:flex-row -mx-4 bg-gray-800 rounded-lg">
                         <div className="p-4 border-b-4 border-[#37FF8B] rounded-md">
                             <div className='h-64 md:h-80 rounded-lg mb-4'>
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSimMDuMEMZWRWmAqL1It9mF1Nw1o_iMY2UVQ&usqp=CAU" className='h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center ' />
+                                <img
+                                    src={`data:image/png;base64,${cardData.productImage}`}
+                                    alt=''
+                                    className='h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center ' />
                             </div>
                         </div>
                         <div className="md:flex-1 px-4">
-                            <h2 className="mb-2 leading-tight tracking-tight font-bold text--800 text-2xl md:text-3xl">{dishDetails.title}</h2>
-                            <p className="text-gray-500 text-sm">By <a href="#" className="text-[#37FF8B] hover:underline">{dishDetails.chef}</a></p>
-
-                            <div className="flex items-center space-x-4 my-4">
-                                <div>
-                                    <p className="text-green-500 text-xl font-semibold">Likes</p>
-                                </div>
-                                <div>
-                                    <div className="rounded-lg bg-gray-100  py-2 px-3">
-                                        <span className="font-bold text-indigo-600 text-3xl">{dishDetails.likes}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <p className="text-gray-500 ">{dishDetails.description}</p>
+                            <h2 className="mb-2 leading-tight tracking-tight font-bold text--800 text-2xl md:text-3xl">{cardData.productName}</h2>
+                            <p className="text-gray-500 text-sm">By <a href="#" className="text-[#37FF8B] hover:underline">{cardData.userName}</a></p>
+                            <p className="text-gray-500 ">{cardData.description}</p>
 
                             <div className="flex py-4 space-x-4">
                                 <motion.button
@@ -99,32 +168,48 @@ const CardPage = () => {
                     <div className=''>
                         <aside>
                             <h2 className="max-w-5xl m-4 text-lg lg:text-2xl font-bold text-gray-800 dark:text-white">Similar Products</h2>
-                            <div className="flex space-x-4 p-2 overflow-x-auto">
-                                <div className="flex" style={{ width: `${cardClothesData.length * 320}px` }}>
-                                    {cardClothesData.map((data, index) => (
-                                        <div key={index} className="w-80 mx-4">
-                                            <CardClothes
-                                                productName={data.productName}
-                                                userName={data.userName}
-                                                distance={data.distance}
-                                                role={data.roles}
-                                            />
+                            {
+                                similarProductsLoading ?
+                                    <Loader />
+                                    :
+                                    <div className="flex space-x-4 p-2 overflow-x-auto">
+                                        <div className="flex" style={{ width: `${cardClothesData.length * 320}px` }}>
+                                            {similarData.map((data, index) => (
+                                                <div key={index} className="w-80 mx-4">
+                                                    <CardClothes
+                                                        productId={data._id}
+                                                        productName={data.productName}
+                                                        userName={data.userName}
+                                                        distance={60}
+                                                        role={data.productType}
+                                                        image={data.productImage}
+                                                        createdAt={data.createdAt}
+                                                    />
+                                                </div>
+                                            ))}
                                         </div>
-                                    ))}
-                                </div>
-                            </div>
+                                    </div>
+                            }
+
                         </aside>
                         <section className="max-h-[500px] overflow-y-auto bg-white dark:bg-gray-800 rounded-lg py-4 antialiased">
                             <div className="max-w-2xl mx-auto px-4">
                                 <div className="flex justify-between items-center mb-6">
                                     <h2 className="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion ({comments.length})</h2>
                                 </div>
-                                <form className="mb-6">
+                                <form className="mb-6" onSubmit={addComment}>
                                     <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                                         <label htmlFor="comment" className="sr-only">Your comment</label>
-                                        <textarea id="comment" rows="6"
+                                        <textarea
+                                            id="comment"
+                                            rows="6"
                                             className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800 resize-none"
-                                            placeholder="Write a comment..." required></textarea>
+                                            placeholder="Write a comment..."
+                                            value={formData.comment}
+                                            onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
+                                            required
+                                        ></textarea>
+
                                     </div>
                                     <motion.button
                                         whileHover={{ scale: 1.05 }}

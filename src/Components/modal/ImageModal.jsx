@@ -29,7 +29,6 @@ const ImageModal = ({ handleClose }) => {
                 }
             );
             window.location.reload()
-            // Handle successful upload, update UI or close modal
         } catch (error) {
             console.error("Error while updating the image", error);
         } finally {
@@ -54,7 +53,7 @@ const ImageModal = ({ handleClose }) => {
                     exit="exit"
 
                 >
-                    <h1 className="m-4 text-4xl font-bold text-gray-600 mb-4 text-4xl  tracking-tight leading-none text-gray-900 md:text-5xl lg:text-4xl dark:text-[white]">
+                    <h1 className="m-4 font-bold text-gray-600 mb-4 text-4xl  tracking-tight leading-none md:text-5xl lg:text-4xl dark:text-[white]">
                         Update Image                    </h1>
                     <form action="POST" onSubmit={handleSubmit}
                         className="m-6 space-y-6" autoComplete="off">
